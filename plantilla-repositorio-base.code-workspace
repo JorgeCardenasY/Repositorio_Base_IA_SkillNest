@@ -1,0 +1,54 @@
+{
+    "folders": [
+        {
+            "name": "💻 plantilla-repositorio-base",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "C:/LegacyApp/Python39/python.exe",
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.diagnosticSeverityOverrides": {
+            "reportArgumentType": "none",
+            "reportAttributeAccessIssue": "information",
+            "reportWildcardImportFromLibrary": "error",
+            "reportOptionalMemberAccess": "information"
+        },
+        "python.analysis.typeCheckingMode": "off",
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "ms-python.python",
+        "python.analysis.fixAll": [
+            "source.unusedImports"
+        ],
+        "files.exclude": {
+            "**/.git": true,
+            "**/.venv": true,
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "**/.pytest_cache": true,
+            "**/.mypy_cache": true
+        },
+        "search.exclude": {
+            "**/.venv": true,
+            "**/__pycache__": true,
+            "**/.pytest_cache": true
+        },
+        "python.terminal.launchArgs": [
+            "-m",
+            "pyenv"
+        ],
+        "launch": {
+            "version": "0.2.0",
+            "configurations": [
+                {
+                    "name": "Python: Current File",
+                    "type": "debugpy",
+                    "request": "launch",
+                    "program": "${file}",
+                    "console": "integratedTerminal",
+                    "justMyCode": true
+                }
+            ]
+        }
+    }
+}

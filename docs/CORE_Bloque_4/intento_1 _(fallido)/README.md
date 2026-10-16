@@ -1,0 +1,3 @@
+# Explicación y Observaciones
+## Intento:
+He intentado ejecutar la solicitud utilizando la aplicación de Escritorio POSTMAN. No pude incorporar directamente las variables de ambiente. POSTMAN me solicitabaingresar manualmente las variables de ambiente. No encontré como hacer la importación. Ergo, instalé la extensión de POSTMAN para VSCode. Esta extensión automáticamente detectó las variables de amviente del fichero .env y ejecutó la solicitud. Adjunto resultado efectivo en carpeta 'intento_2_(exitoso)'
