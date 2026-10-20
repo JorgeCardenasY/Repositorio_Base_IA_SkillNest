@@ -1,34 +1,34 @@
-import os
-import requests
-from dotenv import load_dotenv
+import time
 
-load_dotenv()
+from consulta_y_consumo import armar_peticion, enviar_peticion, calcular_costo
 
-def obtener_dato_de_prueba(pregunta):
-    api_key = os.getenv("GEMINI_API_KEY")
-    modelo = os.getenv("modelo")
+PRECIO_ENTRADA = 0.00000010  # el valor real de la página de precios
+PRECIO_SALIDA = 0.00000030
 
-    url = (
-        "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"{modelo}:generateContent?key={api_key}"
-    )
 
-    body = {
-        "contents": [
-            {
-                "parts": [
-                    {"text": pregunta}
-                ]
-            }
-        ]
-    }
+def medir_latencia_y_costo(pregunta):
+    """Mide la latencia promedio y el costo de la última petición."""
+    latencias = []
+    respuesta_json = None
 
-    respuesta = requests.post(url, json=body)
-    respuesta.raise_for_status()  # lanza error claro si falla
-    datos = respuesta.json()
-    return datos["candidates"][0]["content"]["parts"][0]["text"]
+    for i in range(4):
+        url, body = armar_peticion(pregunta)
+        inicio = time.perf_counter()
+        respuesta_json = enviar_peticion(url, body)
+        fin = time.perf_counter()
+
+        latencias.append(fin - inicio)
+        print(f"Intento {i + 1}: {latencias[-1]:.2f} segundos")
+
+    latencia_promedio = sum(latencias) / len(latencias)
+    print(f"Latencia promedio: {latencia_promedio:.2f} segundos")
+
+    costo = calcular_costo(respuesta_json, PRECIO_ENTRADA, PRECIO_SALIDA)
+    print(f"Costo de la última petición: {costo}")
+
+    return respuesta_json
 
 
 if __name__ == "__main__":
-    respuesta = obtener_dato_de_prueba("clima de Arica, Chile mañana")
-    print(respuesta)
+    pregunta = "clima de Arica, Chile mañana"
+    medir_latencia_y_costo(pregunta)
