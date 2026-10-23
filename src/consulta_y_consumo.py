@@ -1,9 +1,10 @@
 import os
 import requests
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Cargar variables de entorno
-load_dotenv()
+# Cargar variables de entorno desde la raíz del proyecto
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 def armar_peticion(pregunta, imagen_base64=None, mime_type="image/png"):
     """Construye la URL y el body usando las variables de entorno.
@@ -12,7 +13,7 @@ def armar_peticion(pregunta, imagen_base64=None, mime_type="image/png"):
     consultas multimodales (por ejemplo, reconocimiento de imágenes).
     """
     api_key = os.getenv("GEMINI_API_KEY")
-    modelo = os.getenv("modelo")
+    modelo = os.getenv("MODELO")
 
     url = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
