@@ -30,7 +30,7 @@ Devuelve lo que devuelva `funcion()` en el primer intento exitoso.
 
 - Sólo atrapa `TimeoutError`. Hoy `enviar_peticion` lanza `RuntimeError`, así que un 429 o un 503 **no** se reintenta acá: el error sube de inmediato.
 - Si el ciclo termina sin retorno, la función devuelve `None` y no avisa.
-- Quedaron imports y comentarios de borrador (`extraer_texto` no se usa). Conviene limpiarlo cuando se integre de verdad.
+- Es un script en desarrollo, por lo que quedaron imports y comentarios de borrador (`extraer_texto` no se usa).
 
 
 

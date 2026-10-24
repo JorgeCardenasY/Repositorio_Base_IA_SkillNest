@@ -4,7 +4,7 @@
 
 ## Qué hace
 
-Compara tres modelos con el mismo prompt de texto (precio de una habitación single en el Hotel Amaru): `MODELO 'GEMINI'`, DeepSeek PRO y DeepSeek Flash. Mide respuesta, tokens, costo y latencia, y arma una tabla en Markdown.
+Compara tres modelos con el mismo prompt de texto (precio de una habitación single en el Hotel Amaru): GEMINI, DeepSeek PRO y DeepSeek Flash. Mide respuesta, tokens, costo y latencia, y arma una tabla en Markdown.
 
 ## Uso
 
@@ -22,10 +22,10 @@ En el fichero `.env`:
 
 ## Qué hace por dentro
 
-1.- Consulta Gemini con `armar_peticion` + `enviar_peticion`.
-2.- Consulta DeepSeek con el SDK de OpenAI (`base_url="https://api.deepseek.com"`).
-3.- Normaliza el `usage` de DeepSeek al formato `usageMetadata`, para reutilizar `calcular_costo`.
-4.- Si un modelo falla, la tabla muestra su estado ("Error") en vez de cortar la comparación.
+1.- Consulta Gemini con `armar_peticion` + `enviar_peticion`.</br>
+2.- Consulta DeepSeek con el SDK de OpenAI (`base_url="https://api.deepseek.com"`).</br>
+3.- Normaliza el `usage` de DeepSeek al formato `usageMetadata`, para reutilizar `calcular_costo`.</br>
+4.- Si un modelo falla, la tabla muestra su estado ("Error") en vez de cortar la comparación.</br>
 
 ## Ojo con
 

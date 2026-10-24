@@ -21,10 +21,11 @@ Si no se pasa ruta, intenta con `placa.png`, que no está en el repositorio.
 
 ## Qué hace por dentro
 
-1.- `codificar_imagen` lee el fichero y lo pasa a base64.
-2.- Gemini recibe la imagen con `armar_peticion_imagen` (`inlineData`).
-3.- DeepSeek la recibe como `image_url` con `data:image/png;base64,...`.
-4.- Si DeepSeek rechaza la imagen (`BadRequestError`), la fila queda como "No soporta visión".
+1.- `codificar_imagen` lee el fichero y lo pasa a base64.</br>
+2.- Gemini recibe la imagen con `armar_peticion_imagen` (`inlineData`).</br>
+3.- DeepSeek la recibe como `image_url` con `data:image/png;base64,...`.</br>
+4.- Si DeepSeek rechaza la imagen (`BadRequestError`), la fila queda como "No soporta visión". </br>
+> **RELEVANTE**: El punto 4  se implementó a sabiendas que el modelo **PRO** de DeepSeek no soporta imágenes, pero se debía incorporar ya que la en el script hermano `comparativa_pricing_hotel.py` se le incluye, y puede ser un criterio importante a documentar para la toma de decisión de arquitectura.
 
 ## Ojo con
 

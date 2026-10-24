@@ -23,11 +23,12 @@ for prompt in BANCO_DE_PROMPT:
     print(prompt["nombre"])
 ```
 
-## Ojo con
+## Precauciones:
 
+- Es un fichero de datos, no un script: no se ejecuta solo.
 - Lo consume `src/consistencia.py`; por cada ficha se hacen 3 consultas (los 3 intentos).
 - Las claves del esquema llevan espacios a propósito ("Distancia del Morro de Arica"). Gemini las acepta tal cual, pero hay que respetarlas también en `claves_esperadas`.
-- Es un fichero de datos, no un script: no se ejecuta solo.
+
 
 
 

@@ -14,15 +14,15 @@ python src/consumir_gemini.py
 
 ## Qué hace por dentro
 
-1.- Arma con `armar_peticion(pregunta)`, sin rol ni esquema.
-2.- Mide con `time.perf_counter()` antes y después de `enviar_peticion`.
-3.- Calcula el promedio de los 4 intentos.
-4.- Calcula el costo con `calcular_costo`, usando `PRECIO_ENTRADA` y `PRECIO_SALIDA`.
+1.- Arma con `armar_peticion(pregunta)`, sin rol ni esquema.</br>
+2.- Mide con `time.perf_counter()` antes y después de `enviar_peticion`.</br>
+3.- Calcula el promedio de los 4 intentos.</br>
+4.- Calcula el costo con `calcular_costo`, usando `PRECIO_ENTRADA` y `PRECIO_SALIDA`.</br>
 
 ## Ojo con
 
 - Son 4 consultas reales por corrida; sirve para medir latencia, pero gasta cuota.
-- Los precios están escritos como constantes ("el valor real de la página de precios"); si cambian, hay que actualizarlos a mano.
+- Los precios están escritos como constantes (A.K.A.: _hardodeados_) ("el valor real de la página de precios"); si cambian, hay que actualizarlos a mano.
 - Devuelve el JSON de la última respuesta, no el promedio.
 
 

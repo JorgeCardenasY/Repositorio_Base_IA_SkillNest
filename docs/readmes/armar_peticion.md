@@ -32,8 +32,15 @@ Devuelve una tupla `(url, body)`, lista para `enviar_peticion`.
 
 - Lee `GEMINI_API_KEY` y `MODELO` desde el `.env` de la raíz, con ruta absoluta, así funciona desde cualquier carpeta.
 - No maneja imágenes: para eso está `armar_peticion_imagen.py`.
-- La key viaja en la URL (`?key=...`); por eso los errores no deberían mostrar la URL completa.
-
+- En pruebas, he encontrado que la key viaja en la URL (`?key=...`), incluso en los mensajes de error. Estuve investigando, y al parecer, podría quedar la clave expuesta. Se plantea la recomendación de o pasar la clave a los headers de la solicitud o hacer algo similar a:
+```python
+except requests.exceptions.RequestException as e:
+    clave = os.getenv("GEMINI_API_KEY") or ""
+    detalle = str(e).replace(clave, "***") if clave else str(e)
+    raise RuntimeError(f"Error en la petición al servicio: {detalle}") from None
+ = str(e).replace(clave, "***") if clave else str(e)
+```
+De este modo, en la solicitud, la clave o key sería reemplazada por "***". Es importante señalar que esto último no se ha implementado.
 
 
 Atte.-</br>
