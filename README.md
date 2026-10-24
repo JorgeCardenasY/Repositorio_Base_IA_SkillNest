@@ -20,8 +20,17 @@ Estos pasos se completan de forma progresiva a lo largo de la Unidad U1.2, no to
 - `.env.example` : plantilla de las variables de entorno que tu proyecto necesita, sin valores reales. Tu archivo `.env` real (con tus credenciales) nunca se commitea.
 - `.gitignore` : le dice a Git qué archivos y carpetas ignorar (entre ellos, tu entorno virtual y tu archivo `.env`).
 
+## Documentación del código
+
+Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice está en [`docs/readmes/README.md`](docs/readmes/README.md).
+
 ## Reglas que se mantienen durante todo el programa
 
 - Ningún secreto (contraseña, llave de API, token) va escrito directamente en el código ni en ningún archivo que se suba al repositorio.
 - Cada proyecto nuevo tiene su propio entorno virtual: no se comparten dependencias entre proyectos distintos.
 - Todo el trabajo que se entrega en este programa vive en un repositorio de GitHub, sin excepción.
+
+
+
+Atte.-</br>
+_Jorge Cárdenas Yañez_
