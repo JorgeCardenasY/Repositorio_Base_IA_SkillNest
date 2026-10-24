@@ -65,7 +65,7 @@ No agregues bloques de código ni comentarios fuera del JSON.
 """
 
 # La pregunta que queremos hacerle al modelo.
-PREGUNTA = "relaciona Tecnofeudalismo y el concepto del 'esclavitud asalariada' 'de Diego fusaro'"
+PREGUNTA = "en cuanto ha subido el precio del petróleo en Chile en los últimos 3 meses y por qué"
 
 # ---------------------------------------------------------------------------
 # PASO 3: describir cómo queremos que venga la respuesta

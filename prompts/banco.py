@@ -19,7 +19,7 @@ BANCO_DE_PROMPT = [
 ,
     {
             "nombre": "HotelSpaLasTaguas",
-            "system_instruction": "Eres un experto en Hotel Amaru de Arica.",
+            "system_instruction": "Eres un experto en Hotel Spa Las Taguas de Arica.",
             "ejemplo_usuario": "Dame información de Contacto del Hotel Spa Las Taguas en Arica.",
         "claves_esperadas": ["Telefono", "Direccion", "Email", "Distancia del Morro de Arica"],
             "response_schema": {
