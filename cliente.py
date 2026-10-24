@@ -1,6 +1,5 @@
 import time
 from typing import Callable, Any
-from src.consumir_gemini import armar_peticion, enviar_peticion
 from src.consulta_y_consumo import extraer_texto
 
 def con_reintento(  #función, intentos, espera_segundos. Return--> CUALQUIERA

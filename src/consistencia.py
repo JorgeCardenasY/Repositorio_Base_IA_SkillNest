@@ -8,8 +8,11 @@ import json
 import time
 from parsear_respuesta import parsear_respuesta_json
 from prompts.banco import BANCO_DE_PROMPT
-from consulta_y_consumo import armar_peticion, enviar_peticion, extraer_texto, calcular_costo
-import consumir_gemini
+from armar_peticion import armar_peticion
+from consulta_y_consumo import enviar_peticion, extraer_texto
+
+# Ruta absoluta: funciona desde cualquier directorio de trabajo
+RUTA_REGISTRO = Path(__file__).resolve().parents[1] / "prompts" / "registro.json"
 
 registro = {}
 
@@ -19,8 +22,11 @@ try:
         exitos = 0
         intentos = 3
         for intento in range(intentos):
-            pregunta = prompt["system_instruction"] + "\n" + prompt["ejemplo_usuario"]
-            url, body = armar_peticion(pregunta)
+            url, body = armar_peticion(
+                prompt["ejemplo_usuario"],
+                prompt["system_instruction"],
+                prompt["response_schema"],
+            )
             respuesta = enviar_peticion(url, body)
             texto = extraer_texto(respuesta)
             try:
@@ -30,9 +36,9 @@ try:
             except ValueError as error:
                 print(f"Error en el intento {intento + 1}: {error}")
                 time.sleep(1)
-            print(f"{prompt['nombre']}: {exitos}/{intentos} respuestas válidas")
-            registro[prompt["nombre"]] = {"exitos": exitos, "intentos": intentos}
-        with open("prompts/registro.json", "w", encoding="utf-8") as archivo:
+        print(f"{prompt['nombre']}: {exitos}/{intentos} respuestas válidas")
+        registro[prompt["nombre"]] = {"exitos": exitos, "intentos": intentos}
+        with open(RUTA_REGISTRO, "w", encoding="utf-8") as archivo:
             json.dump(registro, archivo, indent=2, ensure_ascii=False)
     
 

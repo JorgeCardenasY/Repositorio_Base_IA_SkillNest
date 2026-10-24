@@ -1,6 +1,7 @@
 import time
 
-from consulta_y_consumo import armar_peticion, enviar_peticion, calcular_costo
+from armar_peticion import armar_peticion
+from consulta_y_consumo import enviar_peticion, calcular_costo
 
 PRECIO_ENTRADA = 0.00000010  # el valor real de la página de precios
 PRECIO_SALIDA = 0.00000030

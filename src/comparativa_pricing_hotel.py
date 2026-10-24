@@ -25,8 +25,8 @@ from datetime import date
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from armar_peticion import armar_peticion
 from consulta_y_consumo import (
-    armar_peticion,
     enviar_peticion,
     extraer_texto,
     calcular_costo,

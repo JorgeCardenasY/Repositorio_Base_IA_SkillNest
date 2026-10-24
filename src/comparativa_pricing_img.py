@@ -25,8 +25,8 @@ from datetime import date
 from dotenv import load_dotenv
 from openai import OpenAI, BadRequestError
 
+from armar_peticion_imagen import armar_peticion_imagen
 from consulta_y_consumo import (
-    armar_peticion,
     enviar_peticion,
     extraer_texto,
     calcular_costo,
@@ -63,7 +63,7 @@ def codificar_imagen(ruta):
 
 def consultar_gemini(pregunta, imagen_base64=None):
     """Consulta Gemini y devuelve latencia, tokens, costo y placa extraída."""
-    url, body = armar_peticion(pregunta, imagen_base64)
+    url, body = armar_peticion_imagen(pregunta, imagen_base64)
 
     inicio = time.perf_counter()
     datos = enviar_peticion(url, body)
