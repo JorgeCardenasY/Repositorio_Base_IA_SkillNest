@@ -134,4 +134,9 @@ Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué
 - Corregido: Se reordenaron las secciones y se indicó que `tests/` aún no tiene pruebas automatizadas.
 - Resultado tras la corrección: README con la estructura acordada y la sección de pruebas actualizada.
 
+> **Fecha: 24/10/2026**
+- Encontrado: `.postman/resources.yaml` seguía versionado pese a la regla de `.gitignore`.
+- Corregido: Se dejó de trackear con `git rm --cached .postman/resources.yaml`.
+- Resultado tras la corrección: El archivo queda ignorado y fuera del repositorio, sin borrarlo del disco.
+
 ## Autor
