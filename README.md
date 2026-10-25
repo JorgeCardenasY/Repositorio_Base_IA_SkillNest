@@ -8,6 +8,23 @@ El presente es la documentación general para acceder al proyecto hasta su estad
 
 ## Estado
 
+
+Repositorio base **operativo en local** y en fase de ejercicios previa al Gate 3. Última verificación registrada en la bitácora: **25/10/2026**.
+
+| Área | Estado | Evidencia |
+|---|---|---|
+| Consulta a Gemini | ✅ Operativa | `src/consulta.py` |
+| Costo y latencia | ✅ Operativos | `src/consulta_y_consumo.py`, `src/consumir_gemini.py` |
+| Consistencia | 🟡 Implementada; última corrida: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 | `prompts/registro.json` |
+| Comparativas Gemini/DeepSeek | ✅ Operativas | `src/comparativa_pricing_hotel.py`, `src/comparativa_pricing_img.py` |
+| Documentación por fichero | ✅ 12 fichas | `docs/readmes/` |
+| Pruebas automatizadas | ⏳ Pendientes | `tests/` sólo tiene `.gitkeep` |
+
+
+Pendiente además: integración continua y empaquetado. Las limitaciones y fallos conocidos se detallan en [Problemas conocidos](#problemas-conocidos).
+
+
+
 ## Requisitos
 
 Sigue las siguientes indicaciones:</br>
@@ -79,7 +96,35 @@ Sigue las siguientes indicaciones:</br>
 
 Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice completo, con la lectura sugerida, está en [`docs/readmes/README.md`](docs/readmes/README.md).
 
+
 ## Salidas
+
+La mayoría de los comandos **imprimen en consola** y no generan ficheros. El único artefacto de datos que escribe el código es `prompts/registro.json`, que `consistencia.py` reescribe en cada corrida. Python puede crear `__pycache__/`, que está ignorado por Git.
+
+| Comando | Salida en consola | Fichero generado |
+|---|---|---|
+| `python src/consulta.py` | Texto crudo del modelo + campos `categoria`, `confianza`, `explicacion` | Ninguno |
+| `python src/consulta_y_consumo.py` | Costo estimado en USD + respuesta | Ninguno |
+| `python src/consumir_gemini.py` | 4 latencias, promedio y costo de la última consulta | Ninguno |
+| `python src/consistencia.py` | Respuestas/errores por intento + resumen `exitos/intentos` | `prompts/registro.json` |
+| `python src/comparativa_pricing_hotel.py` | Métricas por modelo + tabla Markdown comparativa | Ninguno |
+| `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Placa extraída + métricas + tabla Markdown | Ninguno |
+| `python app.py` | Dos bloques ASCII de `cowsay` | Ninguno |
+
+`prompts/registro.json` tiene esta forma:
+
+```json
+{
+  "HotelAmaru": {
+    "exitos": 3,
+    "intentos": 3
+  },
+  "HotelSpaLasTaguas": {
+    "exitos": 1,
+    "intentos": 3
+  }
+}
+```
 
 ## Problemas conocidos
 
@@ -145,3 +190,10 @@ Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué
 - Resultado tras la corrección: Registro completo: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 (dos intentos con 429).
 
 ## Autor
+
+Atte.-
+
+Jorge Cárdenas Yañez </br>
+[HitGub](https://github.com/JorgeCardenasY)</br>
+[LinkedIn](https://www.linkedin.com/in/jorgecardenasy/) </br>
+[eLabs.cl](https://www.elabs.cl/) </br>
