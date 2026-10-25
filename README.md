@@ -1,14 +1,22 @@
 # README del repositorio base — Especialización en Desarrollo con IA Generativa (Accenture)
 
-El presente es la documentación general para acceder al proyecto hasta su estado actual. Es relevante mencionar que se espera que sea la misma estructura inicial, la cual se debiera ir nutriendo bloque a bloque, hasta llegar a la aplicación completa a entregar en el Gate 3.
+## Qué hace
 
-## Cómo empezar
+El presente es la documentación general para acceder al proyecto hasta su estado actual. Es relevante mencionar que se espera que sea la misma estructura inicial, la cual se debiera ir nutriendo bloque a bloque, hasta llegar a la aplicación completa a entregar en el Gate 3.
 
 > Es relevante mencionar que, además de las indicaciones específicas de Google Gemini que se han dado durante la capacitación, he implementado parte del ejercicio utilizando la API de DeepSeek para comparativas para simular casos reales de uso de mi quehacer laboral.
 
+## Estado
+
+## Requisitos
+
 Sigue las siguientes indicaciones:</br>
 1. Instalar git y un IDE acorde a tu sistema operativo.
+
 2. Obtén una llave de Google Gemini en https://aistudio.google.com/api-keys. Para las comparativas también necesitas una de DeepSeek: https://platform.deepseek.com/api_keys.
+
+## Cómo empezar (instalación)
+
 3. Luego, clona este repositorio en tu máquina utilizando el comando bash/Terminal:
 
    ```bash
@@ -31,6 +39,8 @@ Sigue las siguientes indicaciones:</br>
    pip install -r requirements.txt
    ```
 
+## Variables de entorno
+
 6. Copia `.env.example` a un fichero nuevo llamado `.env`:
 
    ```bash
@@ -38,6 +48,8 @@ Sigue las siguientes indicaciones:</br>
    ```
 
    En PowerShell: `Copy-Item .env.example .env`. Luego completa las llaves y modelos (Gemini y, si vas a usar las comparativas, DeepSeek).
+
+## Scripts y costo en consultas
 
 7. Ejecuta el script que quieras probar:
 
@@ -53,25 +65,33 @@ Sigue las siguientes indicaciones:</br>
 
    `cliente.py` es un helper: no se ejecuta solo.
 
-   > Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
-
-## Estructura de carpetas y ficheros relevantes
+## Estructura de carpetas
 
 - `src/` : almacena el código fuente del proyecto.
 - `docs/` : documentación técnica del proyecto y de orientación en la fase de proyecto (**!= PRODUCCIÓN**).
-- `tests/` : pruebas de código.
+- `tests/` : aún sin pruebas automatizadas.
 - `imgs/` : imagenes de prueba para la consulta de reconocimiento de patentes por IA.
 - `requirements.txt` : listado dependencias de Python del proyecto. Facilita la reproductibilidad del entorno.
 - `.env.example` : plantilla de las variables de entorno requeridas por el proyecto.
 - `.gitignore` : restringe el acceso a los ficheros y carpetas listadas en el archivo `.gitignore`, de modo que no sean almacenados ni publicados en el servidor Git.
 
-## Reglas que se mantienen durante todo el programa
+## Documentación
+
+Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice completo, con la lectura sugerida, está en [`docs/readmes/README.md`](docs/readmes/README.md).
+
+## Salidas
+
+## Problemas conocidos
+
+> Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
+
+## Reglas y seguridad
 
 - Ningún secreto (contraseña, llave de API, token) va escrito directamente en el código ni en ningún archivo que se suba al repositorio.
 - Cada proyecto nuevo tiene su propio entorno virtual: no se comparten dependencias entre proyectos distintos.
 - Todo el trabajo que se entrega en este programa vive en un repositorio de GitHub, sin excepción.
 
-## BITACORA (A.K.A --> Registro del ensayo de instalación limpia)
+## Bitácora — Registro del ensayo de instalación limpia
 
 > **Fecha: 22/10/2026**
 - Encontrado: librerías no actualizadas en requirements.txt.
@@ -95,8 +115,8 @@ Sigue las siguientes indicaciones:</br>
 
 > **Fecha: 24/10/2026**
 - Encontrado: Fichero README de la raíz del proyecto con información que distrae de una vista general del proyecto.
-- Corregido: Se agregan README para cada fichero, con enlace en README principal.
-- Resultado tras la corrección: Ordenamiento de la documentación.
+- Corregido: Se eliminó el índice duplicado del README principal y se enlazó `docs/readmes/README.md`.
+- Resultado tras la corrección: README principal más breve y con enlaces válidos a la documentación por fichero.
 
 > **Fecha: 24/10/2026**
 - Encontrado: Fichero `.env.example` no actualizado.
@@ -109,7 +129,9 @@ Sigue las siguientes indicaciones:</br>
 - Corregido: Se actualiza la regla en `.gitignore`.
 - Resultado tras la corrección: Reproductibilidad del repositorio.
 
+> **Fecha: 24/10/2026**
+- Encontrado: El README principal no seguía el orden acordado y la sección de pruebas no reflejaba su estado real.
+- Corregido: Se reordenaron las secciones y se indicó que `tests/` aún no tiene pruebas automatizadas.
+- Resultado tras la corrección: README con la estructura acordada y la sección de pruebas actualizada.
 
-## README de los ficheros .py
-
-Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice completo, con la lectura sugerida, está en [`docs/readmes/README.md`](docs/readmes/README.md).
+## Autor
