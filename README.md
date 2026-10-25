@@ -99,9 +99,16 @@ Sigue las siguientes indicaciones:</br>
 - Resultado tras la corrección: Ordenamiento de la documentación.
 
 > **Fecha: 24/10/2026**
-- Encontrado: Fichero .env.example no actualizado.
-- Corregido: Se actualiza .env.example.
+- Encontrado: Fichero `.env.example` no actualizado.
+- Corregido: Se actualiza `.env.example`.
 - Resultado tras la corrección: Reproductibilidad del repositorio.
+
+
+> **Fecha: 24/10/2026**
+- Encontrado: `.gitignore` estaba pasando ficheros en subdirectorio `.postman`.
+- Corregido: Se actualiza la regla en `.gitignore`.
+- Resultado tras la corrección: Reproductibilidad del repositorio.
+
 
 ## README de los ficheros .py
 
