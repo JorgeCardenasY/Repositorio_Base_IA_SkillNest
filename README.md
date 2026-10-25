@@ -139,4 +139,9 @@ Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué
 - Corregido: Se dejó de trackear con `git rm --cached .postman/resources.yaml`.
 - Resultado tras la corrección: El archivo queda ignorado y fuera del repositorio, sin borrarlo del disco.
 
+> **Fecha: 24/10/2026**
+- Encontrado: `prompts/registro.json` conservaba una corrida fallida e incompleta.
+- Corregido: Se regeneró el registro de ambos prompts con `gemini-flash-latest` y reintentos espaciados.
+- Resultado tras la corrección: Registro completo: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 (dos intentos con 429).
+
 ## Autor
