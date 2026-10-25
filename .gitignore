@@ -20,6 +20,6 @@ Thumbs.db
 # Logs
 *.log
 
-# COnfiguraciones POSTMAN
+# Configuraciones POSTMAN
 .postman/
 postman/

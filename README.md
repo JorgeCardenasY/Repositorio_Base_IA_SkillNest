@@ -4,22 +4,34 @@ El presente es la documentación general para acceder al proyecto hasta su estad
 
 ## Cómo empezar
 
-Si gue las siguientes indicaciones:
+> Es relevante mencionar que he implementado parte del ejercicio utilizando la API de DeepSeek para comparativas.
 
-1. Clona este repositorio utilizando el comando "git clone https://github.com/SebaPobando/gate-1.git"
-2. Crea tu entorno virtual de Python usando el comando <python -m venv venv> en tu terminal y actívalo usando el comando <venv/Scripts/activate>.
-3. Instala las dependencias del proyecto usando el comando <pip install -r requirements.txt> para poder usarlas en la aplicación.
-4. Copia `.env.example` a un archivo nuevo llamado `.env` usando el comando <Copy-Item .env.example .env>, y completa ahí usando tu API.
-5. Para ejectuar la "aplicación", usa el comando <python src/consumir_gemini.py>.
+Sigue las siguientes indicaciones:</br>
+1. Instalar git y un IDE acorde a tu sistema operativo.
+2. Obtén un API Key de Google Gemini (accede con tu cuenta a https://aistudio.google.com/api-keys).
+3. Luego, clona este repositorio en tu máquina utilizando el comando bash/Terminal:</br>``` git clone https://github.com/JorgeCardenasY/Repositorio_Base_IA_SkillNest.git```
 
-## Estructura de carpetas
+4. Crea tu entorno virtual de Python usando el comando ```python -m venv venv``` en tu terminal y actívalo utilizando 
+WINDOWS ```venv/Scripts/activate```.
+LINUX/iOS: ``` venv/bin/activate```.
 
-- `src/` : todo el código fuente de tu proyecto va aquí.
-- `docs/` : documentación técnica del proyecto (diagramas, decisiones de arquitectura, notas).
-- `tests/` : pruebas de tu código (las vas a usar más adelante en el programa, cuando el proyecto lo requiera).
-- `requirements.txt` : dependencias de Python de tu proyecto, para que cualquier otra persona pueda reconstruir tu entorno con un solo comando.
-- `.env.example` : plantilla de las variables de entorno que tu proyecto necesita, sin valores reales. Tu archivo `.env` real (con tus credenciales) nunca se commitea.
-- `.gitignore` : le dice a Git qué archivos y carpetas ignorar (entre ellos, tu entorno virtual y tu archivo `.env`).
+5. Instala las dependencias del proyecto usando el comando ```pip install -r requirements.txt``` para poder usarlas en la aplicación.
+
+6. Copia `.env.example` a un archivo nuevo llamado `.env` usando el comando ```Copy-Item .env.example .env``` (PowerShell) o ```cp .env.example .env``` (Linux/iOS), y completa ahí usando tu API y modelo. 
+
+7. Para ejectuar la "aplicación", usa el comando ```python src/[SCRIPT].py```.
+> Se han elaborado distintos scripts para el desarrollo del proyecto. Por favor, [continúa la lectura para conocerlos](#readme-de-los-ficheros-py).
+
+
+## Estructura de carpetas y ficheros relevantes
+
+- `src/` : almacena el código fuente del proyecto.
+- `docs/` : documentación técnica del proyecto y de orientación en la fase de proyecto (**!= PRODUCCIÓN**).
+- `tests/` : pruebas de código.
+- `imgs/` : imagenes de prueba para la consulta de reconocimiento de patentes por IA.
+- `requirements.txt` : listado dependencias de Python del proyecto. Facilita la reproductibilidad del entorno.
+- `.env.example` : plantilla de las variables de entorno requeridas por el proyecto.
+- `.gitignore` : restringe el acceso a los ficheros y carpetas listadas en el archivo `.gitignore`, de modo que no sean almacenados en el servidor Git.
 
 ## Reglas que se mantienen durante todo el programa
 
@@ -27,12 +39,23 @@ Si gue las siguientes indicaciones:
 - Cada proyecto nuevo tiene su propio entorno virtual: no se comparten dependencias entre proyectos distintos.
 - Todo el trabajo que se entrega en este programa vive en un repositorio de GitHub, sin excepción.
 
-## Registro del ensayo de instalación limpia
- 
+## BITACORA (A.K.A --> Registro del ensayo de instalación limpia)
+
+- Fecha: 23/10/2026
+- Encontrado: módulos faltantes.
+- Corregido: Se incorporaron módulos faltantes en ficheros .py, los cuales se importan y se invocan.
+- Resultado tras la corrección: aplicación funcional.
+
 - Fecha: 22/10/2026
 - Encontrado: En el README.md, no aparece el link del repositorio.
 - Corregido: Se puso el link correcto del repositorio.
 - Resultado tras la corrección: El repositorio se clonó de forma satisfactoria.
+
+- Fecha: 23/10/2026
+- Encontrado: No existían README para cada fichero.
+- Corregido: Se agregan README para cada fichero, con enlace en README principal.
+- Resultado tras la corrección: Robustecimiento de la documentación.
+
 
 # README de los ficheros .py
 
@@ -45,19 +68,19 @@ Este índice lleva a la explicación de cada fichero Python del repositorio. La 
 
 ## src/
 
-- [`armar_peticion.py`](armar_peticion.md): arma la petición de texto.
-- [`armar_peticion_imagen.py`](armar_peticion_imagen.md): arma la petición con imagen.
-- [`comparativa_pricing_hotel.py`](comparativa_pricing_hotel.md): comparativa de texto entre modelos.
-- [`comparativa_pricing_img.py`](comparativa_pricing_img.md): comparativa con imagen de patente.
-- [`consistencia.py`](consistencia.md): 3 intentos por prompt y registro de resultados.
-- [`consulta.py`](consulta.md): flujo completo de una consulta.
-- [`consulta_y_consumo.py`](consulta_y_consumo.md): envío, extracción de texto y costo.
-- [`consumir_gemini.py`](consumir_gemini.md): latencia y costo de 4 consultas.
-- [`parsear_respuesta.py`](parsear_respuesta.md): texto del modelo -> diccionario.
+- [`armar_peticion.py`](docs/readmes/armar_peticion.md): arma la petición de texto.
+- [`armar_peticion_imagen.py`](docs/readmes/armar_peticion_imagen.md): arma la petición con imagen.
+- [`comparativa_pricing_hotel.py`](docs/readmes/comparativa_pricing_hotel.md): comparativa de texto entre modelos.
+- [`comparativa_pricing_img.py`](docs/readmes/comparativa_pricing_img.md): comparativa con imagen de patente.
+- [`consistencia.py`](docs/readmes/consistencia.md): 3 intentos por prompt y registro de resultados.
+- [`consulta.py`](docs/readmes/consulta.md): flujo completo de una consulta.
+- [`consulta_y_consumo.py`](docs/readmes/consulta_y_consumo.md): envío, extracción de texto y costo.
+- [`consumir_gemini.py`](docs/readmes/consumir_gemini.md): latencia y costo de 4 consultas.
+- [`parsear_respuesta.py`](docs/readmes/parsear_respuesta.md): texto del modelo -> diccionario.
 
 ## prompts/
 
-- [`banco.py`](banco.md): banco de prompts de prueba.
+- [`banco.py`](docs/readmes/banco.md): banco de prompts de prueba.
 
 ## Lectura sugerida
 
