@@ -96,7 +96,6 @@ Sigue las siguientes indicaciones:</br>
 
 Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice completo, con la lectura sugerida, está en [`docs/readmes/README.md`](docs/readmes/README.md).
 
-
 ## Salidas
 
 La mayoría de los comandos **imprimen en consola** y no generan ficheros. El único artefacto de datos que escribe el código es `prompts/registro.json`, que `consistencia.py` reescribe en cada corrida. Python puede crear `__pycache__/`, que está ignorado por Git.
