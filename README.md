@@ -1,27 +1,59 @@
 # README del repositorio base — Especialización en Desarrollo con IA Generativa (Accenture)
 
-El presente es la documentación general para acceder al proyecto hasta su estado actual. Esrelevante mencionar que se espera que sea la misma estructura inicial, la cual se debiera ir nutriendo bloque a bloque, hasta llegar a la aplicación completa a entregar en el Gate 3.
+El presente es la documentación general para acceder al proyecto hasta su estado actual. Es relevante mencionar que se espera que sea la misma estructura inicial, la cual se debiera ir nutriendo bloque a bloque, hasta llegar a la aplicación completa a entregar en el Gate 3.
 
 ## Cómo empezar
 
-> Es relevante mencionar que he implementado parte del ejercicio utilizando la API de DeepSeek para comparativas.
+> Es relevante mencionar que, además de las indicaciones específicas de Google Gemini que se han dado durante la capacitación, he implementado parte del ejercicio utilizando la API de DeepSeek para comparativas para simular casos reales de uso de mi quehacer laboral.
 
 Sigue las siguientes indicaciones:</br>
 1. Instalar git y un IDE acorde a tu sistema operativo.
-2. Obtén un API Key de Google Gemini (accede con tu cuenta a https://aistudio.google.com/api-keys).
-3. Luego, clona este repositorio en tu máquina utilizando el comando bash/Terminal:</br>``` git clone https://github.com/JorgeCardenasY/Repositorio_Base_IA_SkillNest.git```
+2. Obtén una llave de Google Gemini en https://aistudio.google.com/api-keys. Para las comparativas también necesitas una de DeepSeek: https://platform.deepseek.com/api_keys.
+3. Luego, clona este repositorio en tu máquina utilizando el comando bash/Terminal:
 
-4. Crea tu entorno virtual de Python usando el comando ```python -m venv venv``` en tu terminal y actívalo utilizando 
-WINDOWS ```venv/Scripts/activate```.
-LINUX/iOS: ``` venv/bin/activate```.
+   ```bash
+   git clone https://github.com/JorgeCardenasY/Repositorio_Base_IA_SkillNest.git
+   ```
 
-5. Instala las dependencias del proyecto usando el comando ```pip install -r requirements.txt``` para poder usarlas en la aplicación.
+4. Crea tu entorno virtual de Python y actívalo:
 
-6. Copia `.env.example` a un archivo nuevo llamado `.env` usando el comando ```Copy-Item .env.example .env``` (PowerShell) o ```cp .env.example .env``` (Linux/iOS), y completa ahí usando tu API y modelo. 
+   ```bash
+   python -m venv venv
+   ```
 
-7. Para ejectuar la "aplicación", usa el comando ```python src/[SCRIPT].py```.
-> Se han elaborado distintos scripts para el desarrollo del proyecto. Por favor, [continúa la lectura para conocerlos](#readme-de-los-ficheros-py).
+   - Windows (PowerShell): `.\venv\Scripts\Activate.ps1`
+   - Windows (CMD): `venv\Scripts\activate.bat`
+   - Linux/macOS: `source venv/bin/activate`
 
+5. Instala las dependencias del proyecto:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+6. Copia `.env.example` a un fichero nuevo llamado `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   En PowerShell: `Copy-Item .env.example .env`. Luego completa las llaves y modelos (Gemini y, si vas a usar las comparativas, DeepSeek).
+
+7. Ejecuta el script que quieras probar:
+
+   | Comando | Qué hace | Consultas reales |
+   |---|---|---|
+   | `python src/consulta.py` | Una consulta con respuesta JSON | 1 |
+   | `python src/consulta_y_consumo.py` | Ejemplo mínimo de envío y costo | 1 |
+   | `python src/consumir_gemini.py` | Latencia promedio y costo | 4 |
+   | `python src/consistencia.py` | 3 intentos por prompt (2 prompts) | 6 |
+   | `python src/comparativa_pricing_hotel.py` | Gemini vs DeepSeek, texto | 3 |
+   | `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Gemini vs DeepSeek, imagen | 3 |
+   | `python app.py` | Prueba con `cowsay` | 0 |
+
+   `cliente.py` es un helper: no se ejecuta solo.
+
+   > Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
 
 ## Estructura de carpetas y ficheros relevantes
 
@@ -31,7 +63,7 @@ LINUX/iOS: ``` venv/bin/activate```.
 - `imgs/` : imagenes de prueba para la consulta de reconocimiento de patentes por IA.
 - `requirements.txt` : listado dependencias de Python del proyecto. Facilita la reproductibilidad del entorno.
 - `.env.example` : plantilla de las variables de entorno requeridas por el proyecto.
-- `.gitignore` : restringe el acceso a los ficheros y carpetas listadas en el archivo `.gitignore`, de modo que no sean almacenados en el servidor Git.
+- `.gitignore` : restringe el acceso a los ficheros y carpetas listadas en el archivo `.gitignore`, de modo que no sean almacenados ni publicados en el servidor Git.
 
 ## Reglas que se mantienen durante todo el programa
 
@@ -41,47 +73,36 @@ LINUX/iOS: ``` venv/bin/activate```.
 
 ## BITACORA (A.K.A --> Registro del ensayo de instalación limpia)
 
-- Fecha: 23/10/2026
-- Encontrado: módulos faltantes.
-- Corregido: Se incorporaron módulos faltantes en ficheros .py, los cuales se importan y se invocan.
-- Resultado tras la corrección: aplicación funcional.
+> **Fecha: 22/10/2026**
+- Encontrado: librerías no actualizadas en requirements.txt.
+- Corregido: `pip freeze > requirements.txt`.
+- Resultado tras la corrección: Reproductibilidad de repositorio.
 
-- Fecha: 22/10/2026
+> **Fecha: 22/10/2026**
 - Encontrado: En el README.md, no aparece el link del repositorio.
 - Corregido: Se puso el link correcto del repositorio.
 - Resultado tras la corrección: El repositorio se clonó de forma satisfactoria.
 
-- Fecha: 23/10/2026
+> **Fecha: 23/10/2026**
+- Encontrado: módulos faltantes.
+- Corregido: Se incorporaron módulos faltantes en ficheros .py (v.g.: armar_peticion.py, parsear_respuesta.py, entre otros), los cuales se importan y se invocan.
+- Resultado tras la corrección: aplicación funcional.
+
+> **Fecha: 23/10/2026**
 - Encontrado: No existían README para cada fichero.
 - Corregido: Se agregan README para cada fichero, con enlace en README principal.
 - Resultado tras la corrección: Robustecimiento de la documentación.
 
+> **Fecha: 24/10/2026**
+- Encontrado: Fichero README de la raíz del proyecto con información que distrae de una vista general del proyecto.
+- Corregido: Se agregan README para cada fichero, con enlace en README principal.
+- Resultado tras la corrección: Ordenamiento de la documentación.
 
-# README de los ficheros .py
+> **Fecha: 24/10/2026**
+- Encontrado: Fichero .env.example no actualizado.
+- Corregido: Se actualiza .env.example.
+- Resultado tras la corrección: Reproductibilidad del repositorio.
 
-Este índice lleva a la explicación de cada fichero Python del repositorio. La idea es la misma en todos: qué hace, cómo se usa y con qué hay que tener cuidado.
+## README de los ficheros .py
 
-## Raíz
-
-- [`app.py`](app.md): prueba inicial con `cowsay`.
-- [`cliente.py`](cliente.md): helper de reintentos, en estado de borrador.
-
-## src/
-
-- [`armar_peticion.py`](docs/readmes/armar_peticion.md): arma la petición de texto.
-- [`armar_peticion_imagen.py`](docs/readmes/armar_peticion_imagen.md): arma la petición con imagen.
-- [`comparativa_pricing_hotel.py`](docs/readmes/comparativa_pricing_hotel.md): comparativa de texto entre modelos.
-- [`comparativa_pricing_img.py`](docs/readmes/comparativa_pricing_img.md): comparativa con imagen de patente.
-- [`consistencia.py`](docs/readmes/consistencia.md): 3 intentos por prompt y registro de resultados.
-- [`consulta.py`](docs/readmes/consulta.md): flujo completo de una consulta.
-- [`consulta_y_consumo.py`](docs/readmes/consulta_y_consumo.md): envío, extracción de texto y costo.
-- [`consumir_gemini.py`](docs/readmes/consumir_gemini.md): latencia y costo de 4 consultas.
-- [`parsear_respuesta.py`](docs/readmes/parsear_respuesta.md): texto del modelo -> diccionario.
-
-## prompts/
-
-- [`banco.py`](docs/readmes/banco.md): banco de prompts de prueba.
-
-## Lectura sugerida
-
-En orden a comprender de manera lógica el repositorio, tenga a bien aceptar la sugerencia de abordar el repositorio en este ŕoden: `consulta_y_consumo.md` -> `armar_peticion.md` -> `consulta.md`. Con esos tres se entiende el flujo base; el resto son variantes (imagen, comparativas, consistencia).
+Cada fichero `.py` tiene su propio README con qué hace, cómo se usa y con qué hay que tener cuidado. El índice completo, con la lectura sugerida, está en [`docs/readmes/README.md`](docs/readmes/README.md).
