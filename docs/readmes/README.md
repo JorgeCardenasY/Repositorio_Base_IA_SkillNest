@@ -4,7 +4,7 @@ Este índice lleva a la explicación de cada fichero Python del repositorio. La 
 
 ## Raíz
 
-- [`app.py`](app.md): prueba inicial con `cowsay`.
+- [`app.py`](app.md): punto de entrada; una consulta real a Gemini con costo estimado.
 - [`cliente.py`](cliente.md): helper de reintentos, en estado de borrador.
 
 ## src/
