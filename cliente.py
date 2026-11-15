@@ -1,3 +1,5 @@
+from cliente_api import armar_peticion, enviar_peticion, extraer_texto
+
 import time
 import random
 from typing import Callable, Any
