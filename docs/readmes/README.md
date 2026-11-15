@@ -11,6 +11,7 @@ Este índice lleva a la explicación de cada fichero Python del repositorio. La 
 
 - [`armar_peticion.py`](armar_peticion.md): arma la petición de texto.
 - [`armar_peticion_imagen.py`](armar_peticion_imagen.md): arma la petición con imagen.
+- [`cliente_reintento.py`](cliente_reintento.md): una consulta con reintentos y backoff exponencial.
 - [`comparativa_pricing_hotel.py`](comparativa_pricing_hotel.md): comparativa de texto entre modelos.
 - [`comparativa_pricing_img.py`](comparativa_pricing_img.md): comparativa con imagen de patente.
 - [`consistencia.py`](consistencia.md): 3 intentos por prompt y registro de resultados.

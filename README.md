@@ -73,6 +73,7 @@ Sigue las siguientes indicaciones:</br>
    | Comando | Qué hace | Consultas reales |
    |---|---|---|
    | `python src/consulta.py` | Una consulta con respuesta JSON | 1 |
+   | `python src/cliente_reintento.py` | Una consulta con reintentos y backoff | 1 (hasta 3 si hay 429) |
    | `python src/consulta_y_consumo.py` | Ejemplo mínimo de envío y costo | 1 |
    | `python src/consumir_gemini.py` | Latencia promedio y costo | 4 |
    | `python src/consistencia.py` | 3 intentos por prompt (2 prompts) | 6 |
@@ -103,6 +104,7 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 | Comando | Salida en consola | Fichero generado |
 |---|---|---|
 | `python src/consulta.py` | Texto crudo del modelo + campos `categoria`, `confianza`, `explicacion` | Ninguno |
+| `python src/cliente_reintento.py` | Texto crudo + campos + nº de intento + costo estimado | Ninguno |
 | `python src/consulta_y_consumo.py` | Costo estimado en USD + respuesta | Ninguno |
 | `python src/consumir_gemini.py` | 4 latencias, promedio y costo de la última consulta | Ninguno |
 | `python src/consistencia.py` | Respuestas/errores por intento + resumen `exitos/intentos` | `prompts/registro.json` |
@@ -128,6 +130,8 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 ## Problemas conocidos
 
 > Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
+
+> `cliente.py` (raíz) sigue siendo un borrador: tiene imports duplicados y llama a `armar_peticion` con 3 argumentos, firma que no existe. La versión de referencia de la política de reintentos es `src/cliente_reintento.py`.
 
 ## Reglas y seguridad
 
@@ -187,6 +191,11 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 - Encontrado: `prompts/registro.json` conservaba una corrida fallida e incompleta.
 - Corregido: Se regeneró el registro de ambos prompts con `gemini-flash-latest` y reintentos espaciados.
 - Resultado tras la corrección: Registro completo: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 (dos intentos con 429).
+
+> **Fecha: 15/11/2026**
+- Encontrado: `src/cliente_reintento.py` mezclaba un mock con el cliente real, arrancaba código a nivel de módulo y fallaba con `NameError` al ejecutarse.
+- Corregido: se reescribió como capa de reintentos sobre `consulta_y_consumo.enviar_peticion`, con clasificación de errores, backoff exponencial con jitter, validación de `.env`, `main()` y guardia `__main__`; se agregó su ficha en `docs/readmes/cliente_reintento.md`.
+- Resultado tras la corrección: compilación, import sin efectos y política de reintentos verificadas con un doble de prueba. La consulta real quedó pendiente: el proveedor rechazó la `GEMINI_API_KEY` del `.env` (HTTP 401, "API key not valid") y el script lo reportó como error definitivo, sin reintentar.
 
 ## Autor
 
