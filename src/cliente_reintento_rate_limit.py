@@ -1,8 +1,15 @@
+"""
+Uso:
+    python src/cliente_reintento_rate_limit.py
+"""
+
 import time
 
 import random
 
 from typing import Callable, Any
+
+from requests.exceptions import HTTPError
 
 from armar_peticion import armar_peticion
 from consulta_y_consumo import enviar_peticion, extraer_texto
@@ -47,6 +54,8 @@ def consultar_modelo(pregunta: str, system_instruction: str = "") -> str:
         respuesta = con_reintento(lambda: enviar_peticion(url, cuerpo))
     except TimeoutError:
         raise RuntimeError("El servicio no respondió tras varios intentos. Intenta más tarde.")
+    except HTTPError as error:
+        raise RuntimeError(f"Error definitivo del proveedor: {error}") from error
     registrar_costo(respuesta)
     return extraer_texto(respuesta)
 
@@ -56,7 +65,7 @@ if __name__ == "__main__":
         try:
             respuesta = consultar_modelo(f"Pregunta de prueba número {i}")
             print(f"Respuesta {i}: {respuesta[:40]}...")
-        except RuntimeError as error:
+        except (RuntimeError, ValueError) as error:
             print(f"Respuesta {i} falló definitivamente: {error}")
 
     print(f"Costo total del ensayo: ${costo_total_sesion:.5f}")
