@@ -10,6 +10,7 @@ env/
 __pycache__/
 *.py[cod]
 *.egg-info/
+.pytest_cache/
 
 # Archivos del sistema operativo y del editor
 .DS_Store
