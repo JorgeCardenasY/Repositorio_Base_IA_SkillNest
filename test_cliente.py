@@ -12,10 +12,9 @@ Reglas que sigue toda la suite:
 * ``costo_total_sesion`` es estado global del módulo, así que una fixture
   ``autouse`` lo pone en cero antes y después de cada prueba.
 
-Existe una copia espejo en ``src/test_cliente.py`` (mismo contenido, para el
-módulo ``src/cliente.py``): si se lanzan las dos suites en la misma corrida se
-recogen los 38 casos, porque ambos módulos se comportan igual. Conviene correr
-una a la vez.
+Existe una copia espejo en ``src/test_cliente.py`` (mismo contenido, aplicada al
+módulo ``src/cliente.py``). Ambas se llaman igual, así que pytest las ejecuta de
+a una: el ``pytest.ini`` deja ``pytest`` apuntando a esta suite (la canónica).
 
 Ejecución:
     pytest test_cliente.py -v
