@@ -17,7 +17,7 @@ Repositorio base **operativo en local** y en fase de ejercicios previa al Gate 3
 | Costo y latencia | ✅ Operativos | `src/consulta_y_consumo.py`, `src/consumir_gemini.py` |
 | Consistencia | 🟡 Implementada; última corrida: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 | `prompts/registro.json` |
 | Comparativas Gemini/DeepSeek | ✅ Operativas | `src/comparativa_pricing_hotel.py`, `src/comparativa_pricing_img.py` |
-| Documentación por fichero | ✅ 12 fichas | `docs/readmes/` |
+| Documentación por fichero | ✅ 13 fichas | `docs/readmes/` |
 | Pruebas automatizadas | ⏳ Pendientes | `tests/` sólo tiene `.gitkeep` |
 
 
@@ -74,6 +74,7 @@ Sigue las siguientes indicaciones:</br>
    |---|---|---|
    | `python src/consulta.py` | Una consulta con respuesta JSON | 1 |
    | `python src/cliente_reintento.py` | Una consulta con reintentos y backoff | 1 (hasta 3 si hay 429) |
+   | `python src/cliente_reintento_rate_limit.py` | 10 consultas iguales seguidas para provocar el 429 | 10 (hasta 30 si hay 429) |
    | `python src/consulta_y_consumo.py` | Ejemplo mínimo de envío y costo | 1 |
    | `python src/consumir_gemini.py` | Latencia promedio y costo | 4 |
    | `python src/consistencia.py` | 3 intentos por prompt (2 prompts) | 6 |
@@ -105,6 +106,7 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 |---|---|---|
 | `python src/consulta.py` | Texto crudo del modelo + campos `categoria`, `confianza`, `explicacion` | Ninguno |
 | `python src/cliente_reintento.py` | Texto crudo + campos + nº de intento + costo estimado | Ninguno |
+| `python src/cliente_reintento_rate_limit.py` | Costo por consulta, `Respuesta i: …` y costo total del ensayo | Ninguno |
 | `python src/consulta_y_consumo.py` | Costo estimado en USD + respuesta | Ninguno |
 | `python src/consumir_gemini.py` | 4 latencias, promedio y costo de la última consulta | Ninguno |
 | `python src/consistencia.py` | Respuestas/errores por intento + resumen `exitos/intentos` | `prompts/registro.json` |
@@ -196,6 +198,11 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 - Encontrado: `src/cliente_reintento.py` mezclaba un mock con el cliente real, arrancaba código a nivel de módulo y fallaba con `NameError` al ejecutarse.
 - Corregido: se reescribió como capa de reintentos sobre `consulta_y_consumo.enviar_peticion`, con clasificación de errores, backoff exponencial con jitter, validación de `.env`, `main()` y guardia `__main__`; se agregó su ficha en `docs/readmes/cliente_reintento.md`.
 - Resultado tras la corrección: compilación, import sin efectos y política de reintentos verificadas con un doble de prueba. La consulta real quedó pendiente: el proveedor rechazó la `GEMINI_API_KEY` del `.env` (HTTP 401, "API key not valid") y el script lo reportó como error definitivo, sin reintentar.
+
+> **Fecha: 16/11/2026**
+- Encontrado: `src/cliente_reintento_rate_limit.py` tenía el bloque original entrecomillado (código muerto, líneas 1-63) y el bloque activo con indentación mixta (1 espacio, espacios+tab y tabulaciones), por lo que no compilaba (`IndentationError` en `import os`, `TabError` en la línea 95). Además importaba `armar_peticion` y `extraer_texto` desde `cliente_api`, que no las define, y desarmaba mal la tupla de `armar_peticion`. Su `enviar_peticion` local usaba `timeout=10` y un modelo hardcodeado, ignorando `MODELO` del `.env`.
+- Corregido: se eliminó el bloque muerto, se reindentó el bloque activo a 4 espacios y se reescribió sobre el cliente del proyecto (`armar_peticion` + `consulta_y_consumo.enviar_peticion`, con `timeout=60` y `Retry-After`), convirtiendo `HTTPError` (400/404) en `RuntimeError` y reportando `ValueError` (401/403) sin traceback; se agregó su ficha en `docs/readmes/cliente_reintento_rate_limit.md` y su entrada en el índice.
+- Resultado tras la corrección: `tabnanny`, `compile`, import y el bucle completo de 10 consultas verificados con un doble de prueba (HTTP 200, 429, 503, 400, 404, 403 y caída de red), sin gastar cuota. La corrida real quedó pendiente de cuota.
 
 ## Autor
 
