@@ -1,38 +1,64 @@
 # cliente.py
 
-**Ubicación:** [`cliente.py`](../../cliente.py)
+**Ubicación:** [`cliente.py`](../../cliente.py) · espejo en [`src/cliente.py`](../../src/cliente.py) ([ficha del espejo](cliente_src.md))
 
 ## Qué hace
 
-Guarda la función `con_reintento`, pensada para ejecutar otra función y volver a intentarlo si falla por tiempo de espera.
+Es el cliente modular del proyecto: reúne en un solo fichero las cuatro piezas que antes estaban repartidas entre `cliente_api.py`, `cliente_reintento.py` y `consulta_y_consumo.py`. Ya **no** es un borrador: compila, se puede importar sin efectos secundarios y tiene pruebas automatizadas ([ficha de la suite](test_cliente.md)).
+
+## Qué ofrece
+
+| Función | Qué hace |
+|---|---|
+| `enviar_peticion(cuerpo)` | Hace el `POST` a Gemini y devuelve el JSON **tal cual**. Clasifica los fallos antes de devolver nada. |
+| `con_reintento(funcion, intentos=3, espera_base=2, espera_maxima=30)` | Ejecuta `funcion()` y reintenta sólo si falla con `TimeoutError`, con backoff exponencial y jitter. |
+| `registrar_costo(respuesta)` | Lee `usageMetadata.totalTokenCount`, calcula el costo de la operación y lo suma a `costo_total_sesion`. |
+| `consultar_modelo(pregunta, system_instruction="")` | Orquesta el flujo completo: armar → enviar con reintentos → registrar costo → devolver el texto. |
 
 ## Uso
 
-```python
-from cliente import con_reintento
-
-resultado = con_reintento(
-    lambda: enviar_peticion(url, body),
-    intentos=3,
-    espera_segundos=2,
-)
+```bash
+python cliente.py
 ```
 
-## Qué recibe y qué devuelve
+```python
+from cliente import consultar_modelo
 
-- `funcion`: la función que se quiere ejecutar, sin argumentos.
-- `intentos`: cuántas veces se intenta (por defecto 3).
-- `espera_segundos`: la pausa entre intentos (por defecto 2).
+print(consultar_modelo("¿Cuál es la capital de Chile?"))
+```
 
-Devuelve lo que devuelva `funcion()` en el primer intento exitoso.
+## Clasificación de errores
+
+| Respuesta del proveedor | Excepción que sale | ¿Se reintenta? |
+|---|---|---|
+| 200 | — (devuelve el JSON) | — |
+| **401 / 403** (credencial inválida) | `ValueError` | No |
+| **429** (límite de uso) | `TimeoutError` | Sí, hasta 3 intentos |
+| **5xx** (fallo del servidor) | `TimeoutError` | Sí, hasta 3 intentos |
+| Timeout o `ConnectionError` de red | `TimeoutError` | Sí, hasta 3 intentos |
+| Otros 4xx (400, 404…) | `requests.HTTPError` | No |
+
+`consultar_modelo` convierte el `TimeoutError` agotado en `RuntimeError("El servicio no respondió tras varios intentos…")`; el `ValueError` y el `HTTPError` suben **sin cambios**.
+
+## Cuánto se espera entre intentos
+
+`min(espera_base * 2 ** (intento - 1), espera_maxima)` segundos **más** un jitter aleatorio de hasta 10 %. Con los valores por defecto: ~2 s, luego ~4 s, y el tope de 30 s para sesiones con muchos reintentos. Por eso las pruebas verifican *cuántas veces* se llamó a `time.sleep`, nunca el valor exacto.
 
 ## Ojo con
 
-- Sólo atrapa `TimeoutError`. Hoy `enviar_peticion` lanza `RuntimeError`, así que un 429 o un 503 **no** se reintenta acá: el error sube de inmediato.
-- Si el ciclo termina sin retorno, la función devuelve `None` y no avisa.
-- Es un script en desarrollo, por lo que quedaron imports y comentarios de borrador (`extraer_texto` no se usa).
+- `URL`, `headers` y `MODELO` se calculan **al importar**: si cambias el `.env`, hay que reiniciar el proceso (o volver a importar).
+- La `GEMINI_API_KEY` viaja en la URL (`?key=…`). Es el mismo esquema del borrador original; si esto pasara a producción conviene moverla a la cabecera `x-goog-api-key`, como hace `consulta_y_consumo.py`. Este módulo nunca imprime la URL en sus mensajes de error.
+- `COSTO_POR_1000_TOKENS = 0.002` es un precio **referencial** para comparar sesiones, no la tarifa oficial.
+- `costo_total_sesion` es estado global del módulo: si lo pruebas, reinícialo entre casos (la suite lo hace con una fixture `autouse`).
+- `con_reintento` con `intentos=0` no ejecuta nada y devuelve `None`: es una entrada sin validar, aunque el valor por defecto (3) lo evita.
+- Tiene un **espejo** en `src/cliente.py`: si cambias una función aquí, replica el cambio allí (sólo difieren los imports y la ruta del `.env`).
+- Las pruebas reemplazan todo con `patch("cliente.requests.post")` y `patch("cliente.time.sleep")`: no gastan cuota.
 
+## Cómo verificarlo
 
+```bash
+pytest test_cliente.py -v     # 20 casos, sin llamadas reales
+```
 
 Atte.-</br>
 _Jorge Cárdenas Yañez_
