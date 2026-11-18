@@ -21,6 +21,10 @@ def vectorizar(tokens: list[str]) -> Counter:
     """Cuenta cuántas veces aparece cada token."""
     return Counter(tokens)
 
+def procesar_texto(texto):
+    texto_limpio = limpiar_texto(texto)
+    return tokenizar(texto_limpio)
+
 if __name__ == "__main__":
     texto = "Santiago es la capital de Chile. ¡Santiago es horrible!"
 
@@ -30,8 +34,9 @@ if __name__ == "__main__":
 
     conteo = vectorizar(tokens)
 
-    print("Texto limpio:", texto_limpio)
-
-    print("Tokens:", tokens)
+#    print("Texto limpio:", texto_limpio)
+#    print("Tokens:", tokens)
 
     print("Conteo:", conteo)
+
+    print("Texto limpio:", procesar_texto(texto))
