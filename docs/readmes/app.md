@@ -37,7 +37,7 @@ python app.py "¿Cuál es la capital de Chile y cuántos habitantes tiene?"
 ## Ojo con
 
 - Cada corrida es **1 consulta real**: consume cuota. Si aparece un 429, hay que esperar o cambiar `MODELO` en el `.env`.
-- `enviar_peticion` no lleva `timeout` ni reintentos: si el servicio no responde, la llamada puede quedar colgada y no hay segundo intento (para eso está `cliente.py`, aún en borrador).
+- `enviar_peticion` no lleva `timeout` ni reintentos: si el servicio no responde, la llamada puede quedar colgada y no hay segundo intento (para eso está `src/cliente.py`, ya operativo y documentado en su [ficha](cliente.md)).
 - Los errores de `enviar_peticion` incluyen la URL con la llave; el `except` de `app.py` corta el mensaje en `?key=` para **no mostrar la API key** en consola.
 - El aviso de error se imprime, pero el proceso termina con código 0: si se usa en un script o CI, hay que revisar el texto, no el `exit code`.
 - Los precios están como constantes en el propio fichero; si cambian, hay que actualizarlos a mano (igual que en `consumir_gemini.py`).

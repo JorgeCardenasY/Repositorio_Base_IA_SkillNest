@@ -1,22 +1,21 @@
 # test_cliente.py
 
-**Ubicación:** [`test_cliente.py`](../../test_cliente.py) · espejo en [`src/test_cliente.py`](../../src/test_cliente.py)
+**Ubicación:** [`src/test_cliente.py`](../../src/test_cliente.py)
 
 ## Qué hace
 
-Es la suite automatizada del cliente modular ([`cliente.py`](cliente.md)). Usa **pytest** con `unittest.mock` y **nunca** llama a la API real: reemplaza `requests.post`, `time.sleep` y las funciones del proyecto por dobles de prueba, así que no consume cuota ni necesita red.
+Es la suite automatizada del cliente modular ([`src/cliente.py`](cliente.md)). Usa **pytest** con `unittest.mock` y **nunca** llama a la API real: reemplaza `requests.post`, `time.sleep` y las funciones del proyecto por dobles de prueba, así que no consume cuota ni necesita red.
 
 Hoy son **17 funciones** que se recogen como **20 casos**, porque 401/403 y 500/502/503 están parametrizados.
 
 ## Cómo se ejecuta
 
 ```bash
-pytest                          # suite canónica (raíz), 20 casos
-pytest test_cliente.py -v       # lo mismo, con el nombre de cada caso
-pytest src/test_cliente.py -v   # misma suite sobre src/cliente.py
+pytest                          # 20 casos (pytest.ini apunta a esta suite)
+pytest src/test_cliente.py -v   # lo mismo, con el nombre de cada caso
 ```
 
-`pytest.ini` fija `testpaths = test_cliente.py`: las dos suites se llaman igual, y si pytest recogiera ambas en la misma corrida fallaría con *import file mismatch* (dos módulos `test_cliente` sin paquete). Por eso `pytest` a secas corre la de la raíz y la de `src/` se pide explícitamente.
+`pytest.ini` fija `testpaths = src/test_cliente.py`: la suite vive junto al cliente modular, y ya no hay dos módulos `test_cliente` que puedan chocar al importarse.
 
 ## Qué cubre
 
@@ -51,14 +50,13 @@ pytest src/test_cliente.py -v   # misma suite sobre src/cliente.py
 1. Elige la sección (`enviar_peticion`, `con_reintento`, `registrar_costo`, `consultar_modelo`).
 2. Escribe el docstring **explicativo**: qué se verifica, por qué importa y qué se está reemplazando.
 3. Si el caso depende de una respuesta HTTP, usa `respuesta_falsa(status_code, datos)`; si depende de un fallo de red, `side_effect=requests.exceptions.ConnectionError(...)`.
-4. Replica el cambio en `src/test_cliente.py` (o copia el archivo completo: sólo cambia el docstring inicial).
 
 ## Ojo con
 
 - Importar `cliente` carga el `.env`, pero **no** hace ninguna petición: el `__main__` está protegido.
 - `respuesta_falsa` devuelve un `Mock`: `raise_for_status()` no lanza nada salvo que se le asigne un `side_effect`, que es justo lo que hace la prueba del 400.
 - Las aserciones de costo usan `pytest.approx` porque son `float`.
-- La suite no cubre `python cliente.py` de punta a punta (eso sería una prueba de integración con cuota real).
+- La suite no cubre `python src/cliente.py` de punta a punta (eso sería una prueba de integración con cuota real).
 
 Atte.-</br>
 _Jorge Cárdenas Yañez_

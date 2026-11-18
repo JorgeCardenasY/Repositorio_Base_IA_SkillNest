@@ -17,8 +17,8 @@ Repositorio base **operativo en local** y en fase de ejercicios previa al Gate 3
 | Costo y latencia | ✅ Operativos | `src/consulta_y_consumo.py`, `src/consumir_gemini.py` |
 | Consistencia | 🟡 Implementada; última corrida: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 | `prompts/registro.json` |
 | Comparativas Gemini/DeepSeek | ✅ Operativas | `src/comparativa_pricing_hotel.py`, `src/comparativa_pricing_img.py` |
-| Documentación por fichero | ✅ 17 fichas | `docs/readmes/` |
-| Pruebas automatizadas | ✅ 20 casos en pytest | `test_cliente.py`, `src/test_cliente.py` |
+| Documentación por fichero | ✅ 16 fichas | `docs/readmes/` |
+| Pruebas automatizadas | ✅ 20 casos en pytest | `src/test_cliente.py` |
 
 
 Pendiente además: integración continua y empaquetado. Las limitaciones y fallos conocidos se detallan en [Problemas conocidos](#problemas-conocidos).
@@ -80,20 +80,19 @@ Sigue las siguientes indicaciones:</br>
    | `python src/consistencia.py` | 3 intentos por prompt (2 prompts) | 6 |
    | `python src/comparativa_pricing_hotel.py` | Gemini vs DeepSeek, texto | 3 |
    | `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Gemini vs DeepSeek, imagen | 3 |
-   | `python cliente.py` | Cliente modular: una consulta con reintentos, costo y texto | 1 (hasta 3 si hay 429) |
-   | `python src/cliente.py` | El mismo cliente en versión de `src/` | 1 (hasta 3 si hay 429) |
+   | `python src/cliente.py` | Cliente modular: una consulta con reintentos, costo y texto | 1 (hasta 3 si hay 429) |
    | `python app.py` | Prueba con `cowsay` | 0 |
 
-   Las suites de pruebas (`test_cliente.py`) no hacen consultas reales: ver [Pruebas automatizadas](#pruebas-automatizadas).
+   La suite de pruebas (`src/test_cliente.py`) no hace consultas reales: ver [Pruebas automatizadas](#pruebas-automatizadas).
 
 ## Estructura de carpetas
 
 - `src/` : almacena el código fuente del proyecto.
 - `docs/` : documentación técnica del proyecto y de orientación en la fase de proyecto (**!= PRODUCCIÓN**).
-- `tests/` : reservado para pruebas de integración; las unitarias viven junto al código (`test_cliente.py`).
+- `tests/` : reservado para pruebas de integración; las unitarias viven junto al código (`src/test_cliente.py`).
 - `imgs/` : imagenes de prueba para la consulta de reconocimiento de patentes por IA.
 - `requirements.txt` : listado dependencias de Python del proyecto. Facilita la reproductibilidad del entorno.
-- `pytest.ini` : configuración mínima de pytest; apunta la corrida por defecto a `test_cliente.py`.
+- `pytest.ini` : configuración mínima de pytest; apunta la corrida por defecto a `src/test_cliente.py`.
 - `.env.example` : plantilla de las variables de entorno requeridas por el proyecto.
 - `.gitignore` : restringe el acceso a los ficheros y carpetas listadas en el archivo `.gitignore`, de modo que no sean almacenados ni publicados en el servidor Git.
 
@@ -107,8 +106,8 @@ La suite del cliente usa **pytest** y no consume cuota: reemplaza `requests.post
 
 ```bash
 pip install -r requirements.txt   # ya incluye pytest
-pytest                            # suite canónica (raíz): 20 casos
-pytest src/test_cliente.py -v     # la misma suite sobre src/cliente.py
+pytest                            # 20 casos (pytest.ini apunta a src/test_cliente.py)
+pytest src/test_cliente.py -v     # lo mismo, con el nombre de cada caso
 ```
 
 Qué cubre cada caso, y por qué se mockea así, está en [`docs/readmes/test_cliente.md`](docs/readmes/test_cliente.md).
@@ -127,8 +126,7 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 | `python src/consistencia.py` | Respuestas/errores por intento + resumen `exitos/intentos` | `prompts/registro.json` |
 | `python src/comparativa_pricing_hotel.py` | Métricas por modelo + tabla Markdown comparativa | Ninguno |
 | `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Placa extraída + métricas + tabla Markdown | Ninguno |
-| `python cliente.py` | Costo de la operación y acumulado + respuesta | Ninguno |
-| `python src/cliente.py` | Igual que `cliente.py` (espejo en `src/`) | Ninguno |
+| `python src/cliente.py` | Cliente modular: costo de la operación y acumulado + respuesta | Ninguno |
 | `python app.py` | Dos bloques ASCII de `cowsay` | Ninguno |
 
 `prompts/registro.json` tiene esta forma:
@@ -150,7 +148,7 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 
 > Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
 
-> `cliente.py` (raíz) y `src/cliente.py` son copias espejo del mismo cliente: si corriges uno, replica el cambio en el otro. Sus dos suites se llaman igual, así que se ejecutan por separado (`pytest` corre la de la raíz; `pytest src/test_cliente.py`, la de `src/`). La versión de referencia de la política de reintentos sigue siendo `src/cliente_reintento.py`.
+> Hay una sola implementación del cliente modular (`src/cliente.py`) y una sola suite (`src/test_cliente.py`, apuntada por `pytest.ini`), así que `pytest` a secas ya ejecuta las pruebas del cliente. La versión de referencia de la política de reintentos sigue siendo `src/cliente_reintento.py`.
 
 ## Reglas y seguridad
 
@@ -225,6 +223,11 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 - Encontrado: `cliente.py` (raíz) seguía siendo un borrador (imports duplicados de `cliente_api`, `consumir_gemini` y `consulta_y_consumo`, `armar_peticion` llamada con 3 argumentos y sin `enviar_peticion`); `src/test_cliente.py` usaba `con_reintento` sin importarlo y no existía un módulo `cliente` importable desde `src/`; pytest no estaba instalado ni declarado en `requirements.txt`.
 - Corregido: se reescribieron `cliente.py` y su espejo `src/cliente.py` con las cuatro funciones (`enviar_peticion`, `con_reintento`, `registrar_costo`, `consultar_modelo`) y la clasificación 401/403 → `ValueError`, 429/5xx → `TimeoutError`; se ampliaron las dos suites a 17 pruebas (20 casos) con docstrings explicativos; se agregó `pytest` al `requirements.txt`, `.pytest_cache/` al `.gitignore`, un `pytest.ini` y las fichas `cliente.md`, `cliente_src.md` y `test_cliente.md`.
 - Resultado tras la corrección: `pytest`, `pytest test_cliente.py -v` y `pytest src/test_cliente.py -v` dan 20 casos aprobados cada uno, sin tráfico de red; se comprobó con un plugin temporal que cada suite importa su propio módulo (`cliente.py` y `src/cliente.py`).
+
+> **Fecha: 17/11/2026**
+- Encontrado: `cliente.py` y `test_cliente.py` de la raíz eran copias espejo de `src/cliente.py` y `src/test_cliente.py`; mantener dos versiones obligaba a replicar cada cambio y a ejecutar la suite por separado en cada carpeta.
+- Corregido: se eliminaron las copias de la raíz y la ficha `cliente_src.md`; `src/cliente.py` y `src/test_cliente.py` quedan como únicos, `pytest.ini` apunta a `src/test_cliente.py` y se actualizaron el README, el índice y las fichas.
+- Resultado tras la corrección: `pytest` recoge 20 casos y los aprueba; `python src/cliente.py` y `python app.py` conservan su comportamiento.
 
 ## Autor
 

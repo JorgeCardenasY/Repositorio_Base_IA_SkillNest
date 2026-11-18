@@ -1,6 +1,6 @@
-# cliente.py
+# src/cliente.py
 
-**Ubicación:** [`cliente.py`](../../cliente.py) · espejo en [`src/cliente.py`](../../src/cliente.py) ([ficha del espejo](cliente_src.md))
+**Ubicación:** [`src/cliente.py`](../../src/cliente.py)
 
 ## Qué hace
 
@@ -18,10 +18,11 @@ Es el cliente modular del proyecto: reúne en un solo fichero las cuatro piezas 
 ## Uso
 
 ```bash
-python cliente.py
+python src/cliente.py
 ```
 
 ```python
+# con src/ en sys.path (p. ej. PYTHONPATH=src)
 from cliente import consultar_modelo
 
 print(consultar_modelo("¿Cuál es la capital de Chile?"))
@@ -51,13 +52,13 @@ print(consultar_modelo("¿Cuál es la capital de Chile?"))
 - `COSTO_POR_1000_TOKENS = 0.002` es un precio **referencial** para comparar sesiones, no la tarifa oficial.
 - `costo_total_sesion` es estado global del módulo: si lo pruebas, reinícialo entre casos (la suite lo hace con una fixture `autouse`).
 - `con_reintento` con `intentos=0` no ejecuta nada y devuelve `None`: es una entrada sin validar, aunque el valor por defecto (3) lo evita.
-- Tiene un **espejo** en `src/cliente.py`: si cambias una función aquí, replica el cambio allí (sólo difieren los imports y la ruta del `.env`).
+- Los imports son **planos**: el módulo espera que `src/` esté en `sys.path` (es la convención de todos los ficheros de esa carpeta). Al ejecutarlo con `python src/cliente.py` eso ocurre solo; al importarlo desde otro sitio hay que añadirlo (`PYTHONPATH=src`), como hace `app.py`.
 - Las pruebas reemplazan todo con `patch("cliente.requests.post")` y `patch("cliente.time.sleep")`: no gastan cuota.
 
 ## Cómo verificarlo
 
 ```bash
-pytest test_cliente.py -v     # 20 casos, sin llamadas reales
+pytest src/test_cliente.py -v     # 20 casos, sin llamadas reales
 ```
 
 Atte.-</br>

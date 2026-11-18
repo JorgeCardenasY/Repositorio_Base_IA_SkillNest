@@ -61,7 +61,7 @@ def falso():
 print(con_reintento(falso, espera_base=0))   # ('ok', 3), sin dormir ni consultar
 ```
 
-- `cliente.py` de la raíz sigue siendo un **borrador** (imports duplicados y `armar_peticion` con 3 argumentos); la versión de referencia de la política de reintentos es este fichero.
+- `src/cliente.py` reúne el cliente modular del proyecto (envío, clasificación de errores, reintentos, costo y consulta); la versión de referencia de la política de reintentos sigue siendo este fichero.
 
 Atte.-</br>
 _Jorge Cárdenas Yañez_

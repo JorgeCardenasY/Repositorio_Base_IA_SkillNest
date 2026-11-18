@@ -12,10 +12,6 @@ carpeta:
 pruebas pueden reemplazarlos con ``patch("cliente.requests.post")`` y
 ``patch("cliente.time.sleep")`` sin tocar el resto de la librería.
 
-Existe una copia espejo en el ``cliente.py`` de la raíz (mismos nombres y
-comportamiento, con imports prefijados por ``src.``) para poder lanzar la suite
-desde cualquiera de las dos carpetas.
-
 Uso:
     python src/cliente.py
 """

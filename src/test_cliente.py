@@ -3,7 +3,7 @@
 Reglas que sigue toda la suite:
 
 * **Nunca** se llama a la API real: el POST se reemplaza por un doble de prueba.
-* Los ``patch`` apuntan a **cómo se ve** el objeto desde ``cliente.py``
+* Los ``patch`` apuntan a **cómo se ve** el objeto desde ``src/cliente.py``
   (``cliente.requests.post``, ``cliente.time.sleep``), no a la librería global;
   si se parchea ``requests.post`` a secas, el módulo sigue usando su propia
   referencia y el mock no tendría efecto.
@@ -12,12 +12,8 @@ Reglas que sigue toda la suite:
 * ``costo_total_sesion`` es estado global del módulo, así que una fixture
   ``autouse`` lo pone en cero antes y después de cada prueba.
 
-Existe una copia espejo en ``test_cliente.py`` de la raíz (mismo contenido,
-aplicada a ``cliente.py``). Ambas se llaman igual, así que pytest las ejecuta de
-a una: esta suite se pide explícitamente y la de la raíz es la que corre
-``pytest`` por defecto (ver ``pytest.ini``).
-
 Ejecución:
+    pytest                      # pytest.ini apunta a esta suite
     pytest src/test_cliente.py -v
 """
 
