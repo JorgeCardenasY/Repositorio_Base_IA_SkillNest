@@ -1,31 +1,30 @@
-"""Consulta mínima a Gemini y comparación de coincidencia de texto.
+"""Evaluacion de coincidencia entre una referencia y una respuesta de ejemplo.
 
-El import de ``cliente`` es perezoso (dentro de ``consultar_texto``) para que
-importar este módulo no cargue el ``.env`` ni ``requests`` ni gaste cuota: la
-consulta solo ocurre al ejecutar el bloque ``__main__``.
+El bloque ``__main__`` solo calcula y muestra la coincidencia de texto crudo y
+procesado, sin consultar al modelo, para que la salida sea reproducible:
+
+    [Caso 1] Coincidencia texto crudo: 57.1%
+    [Caso 1] Coincidencia texto procesado: 100.0%
+
+``consultar_texto`` queda disponible para obtener respuestas reales: importa
+``cliente.consultar_modelo`` dentro de la funcion para que importar este
+modulo no cargue el ``.env`` ni ``requests`` ni gaste cuota.
 """
 
 from pipeline import procesar_texto
 
 
 def consultar_texto(pregunta: str) -> str:
-    """Consulta mínima: devuelve el texto del modelo para ``pregunta``.
-
-    El import se hace aquí dentro, y no en la cabecera, para que importar este
-    módulo no cargue el ``.env`` ni ``requests`` ni gaste cuota: la consulta a
-    Gemini solo ocurre al ejecutar el bloque ``__main__``.
-    """
+    """Consulta mínima: devuelve el texto del modelo para ``pregunta``."""
     from cliente import consultar_modelo
 
     return consultar_modelo(pregunta)
 
 
 if __name__ == "__main__":
-    consulta = "¿Qué es Python?"
+    referencia = "Python es un de programación interpretado."
 
-    referencia = "Python interpretado."
-
-    respuesta = consultar_texto(consulta)
+    respuesta = "**Python** es un **lenguaje** de *programación*, interpretado."
 
 
     crudo_ref = referencia.split()
