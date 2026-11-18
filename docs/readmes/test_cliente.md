@@ -2,61 +2,101 @@
 
 **Ubicación:** [`src/test_cliente.py`](../../src/test_cliente.py)
 
-## Qué hace
+## ¿Qué es?
 
-Es la suite automatizada del cliente modular ([`src/cliente.py`](cliente.md)). Usa **pytest** con `unittest.mock` y **nunca** llama a la API real: reemplaza `requests.post`, `time.sleep` y las funciones del proyecto por dobles de prueba, así que no consume cuota ni necesita red.
+Un archivo con pruebas automáticas. Revisa que el cliente de Gemini ([`src/cliente.py`](../../src/cliente.py)) haga lo correcto.
 
-Hoy son **17 funciones** que se recogen como **20 casos**, porque 401/403 y 500/502/503 están parametrizados.
+Las pruebas **nunca** llaman a la API real: reemplazan la red y las esperas por "dobles" (mocks). Por eso no gastan cuota y funcionan sin internet.
+
+Hoy son **17 funciones** que se ejecutan como **20 casos**, porque dos de ellas se repiten con varios códigos de error.
+
+## ¿Qué necesitas?
+
+- Python.
+- `pytest` (ya está en `requirements.txt`).
+- No hace falta una API key real ni conexión.
 
 ## Cómo se ejecuta
 
 ```bash
-pytest                          # 20 casos (pytest.ini apunta a esta suite)
-pytest src/test_cliente.py -v   # lo mismo, con el nombre de cada caso
+pytest                          # todos los casos
+pytest src/test_cliente.py -v   # igual, pero con el nombre de cada caso
 ```
 
-`pytest.ini` fija `testpaths = src/test_cliente.py`: la suite vive junto al cliente modular, y ya no hay dos módulos `test_cliente` que puedan chocar al importarse.
+Deberías ver: **20 passed**.
 
-## Qué cubre
+El archivo `pytest.ini` ya apunta a esta suite (`testpaths = src/test_cliente.py`), por eso `pytest` a secas funciona.
 
-| Comportamiento esperado | Prueba |
-|---|---|
-| 401 y 403 salen como `ValueError` | `test_enviar_peticion_credencial_invalida` (2 casos) |
-| 429 sale como `TimeoutError` | `test_enviar_peticion_limite_de_uso` |
-| 500, 502 y 503 salen como `TimeoutError` | `test_enviar_peticion_error_del_servidor` (3 casos) |
-| Un 200 devuelve el JSON tal cual | `test_enviar_peticion_exito` |
-| Un `ConnectionError` se clasifica como `TimeoutError` | `test_enviar_peticion_error_de_red_es_timeout` |
-| Un 400/404 deja subir el `HTTPError` original | `test_enviar_peticion_otro_4xx_no_esta_clasificado` |
-| `con_reintento` reintenta el `TimeoutError` | `test_con_reintento_espera_entre_intentos` |
-| `con_reintento` **no** reintenta otro error | `test_con_reintento_no_reintenta_value_error` |
-| Al agotar intentos se propaga la excepción original | `test_con_reintento_agota_intentos` |
-| Sin error no se duerme | `test_con_reintento_exito_al_primer_intento_no_espera` |
-| El backoff respeta `espera_maxima` | `test_con_reintento_respeta_espera_maxima` |
-| El costo sale de `totalTokenCount` | `test_registrar_costo_calcula` |
-| El costo se acumula en `costo_total_sesion` | `test_registrar_costo_acumula` |
-| Sin `usageMetadata` el costo es 0.0 | `test_registrar_costo_sin_metadata` |
-| `TimeoutError` agotado → `RuntimeError` | `test_consultar_modelo_convierte_error` |
-| `ValueError` se propaga sin cambios | `test_consultar_modelo_propaga_value_error` |
-| Camino feliz: texto + costo, sin dormir | `test_consultar_modelo_exito_registra_costo_y_devuelve_texto` |
+## ¿Qué revisa?
 
-## Tres decisiones de diseño
+### 1. Hablar con el servidor (`enviar_peticion`) — 9 casos
 
-1. **`patch` relativo al módulo, no a la librería.** Se parchea `cliente.requests.post` y `cliente.time.sleep` (cómo ve el objeto el módulo bajo prueba). Parchear `requests.post` a secas no tendría efecto: `cliente` ya guardó su propia referencia.
-2. **Nunca se compara el jitter.** La espera incluye `random.uniform(0, espera * 0.1)`, así que se verifica *cuántas veces* se llamó a `time.sleep` (`call_count`), o una cota (`<= 1.1`), jamás un valor exacto.
-3. **Fixture `autouse` para el estado global.** `costo_total_sesion` es una variable de módulo: la fixture `costo_en_cero` la deja en `0.0` antes y después de cada caso, para que el resultado no dependa del orden de ejecución.
+- Clave mala (401 o 403) → error `ValueError`.
+- Demasiadas peticiones (429) → `TimeoutError`.
+- Fallo del servidor (500, 502 o 503) → `TimeoutError`.
+- Todo bien (200) → devuelve los datos tal cual.
+- Se cae la red → `TimeoutError`.
+- Otro error (400 o 404) → se deja pasar el error original.
 
-## Cómo agregar una prueba
+### 2. Reintentar (`con_reintento`) — 5 casos
 
-1. Elige la sección (`enviar_peticion`, `con_reintento`, `registrar_costo`, `consultar_modelo`).
-2. Escribe el docstring **explicativo**: qué se verifica, por qué importa y qué se está reemplazando.
-3. Si el caso depende de una respuesta HTTP, usa `respuesta_falsa(status_code, datos)`; si depende de un fallo de red, `side_effect=requests.exceptions.ConnectionError(...)`.
+- Si hay `TimeoutError`, espera y vuelve a intentarlo.
+- Si el error es distinto, **no** reintenta.
+- Cuando se acaban los intentos, devuelve el último error.
+- Si sale bien a la primera, no espera nada.
+- La espera nunca supera `espera_maxima`.
 
-## Ojo con
+### 3. Calcular el costo (`registrar_costo`) — 3 casos
 
-- Importar `cliente` carga el `.env`, pero **no** hace ninguna petición: el `__main__` está protegido.
-- `respuesta_falsa` devuelve un `Mock`: `raise_for_status()` no lanza nada salvo que se le asigne un `side_effect`, que es justo lo que hace la prueba del 400.
-- Las aserciones de costo usan `pytest.approx` porque son `float`.
-- La suite no cubre `python src/cliente.py` de punta a punta (eso sería una prueba de integración con cuota real).
+- Calcula el costo con `totalTokenCount`.
+- Suma el costo al total de la sesión (`costo_total_sesion`).
+- Si no vienen datos de uso, el costo es `0.0`.
+
+### 4. Consultar el modelo (`consultar_modelo`) — 3 casos
+
+- Si se agotan los reintentos → `RuntimeError`.
+- Si hay un `ValueError`, sube sin cambios.
+- Camino feliz: devuelve el texto y suma el costo.
+
+## Cuatro palabras que conviene saber
+
+- **Prueba (test):** función que empieza por `test_`. Si no empieza así, pytest no la ejecuta.
+- **Mock:** un doble que ocupa el lugar de algo real (por ejemplo, la red).
+- **Fixture:** función que prepara algo antes de las pruebas. Con `autouse=True` se ejecuta sola en todas.
+- **Parametrizar:** repetir la misma prueba con varios datos.
+
+## ¿Cómo se ve una prueba?
+
+```python
+def test_enviar_peticion_exito():
+    """Un 200 devuelve el JSON tal cual."""
+    datos = {"candidates": [{"content": {"parts": [{"text": "Santiago"}]}}]}
+    with patch("cliente.requests.post", return_value=respuesta_falsa(200, datos)):
+        resultado = enviar_peticion({"contents": []})
+
+    assert resultado is datos
+```
+
+Se cambia `requests.post` por un mock, se llama a la función real y se compara el resultado.
+
+## Reglas de oro
+
+1. No llamar nunca a la API real: siempre `patch("cliente.requests.post", ...)`.
+2. No comparar tiempos exactos: la espera incluye azar (`random.uniform`).
+3. No poner `@pytest.fixture` en una función `test_`: dejaría de ser prueba.
+4. Cada prueba debe pasar sola y en cualquier orden.
+
+## Si algo falla
+
+- `ModuleNotFoundError: cliente` → ejecuta desde la raíz del repositorio (o usa `pytest` a secas).
+- Falla un caso de 401/403 → revisa que se lance `ValueError`.
+- Falla un caso de 429 o 5xx → revisa que se lance `TimeoutError`.
+- Un test "no se ejecuta" → comprueba que su nombre empiece por `test_`.
+
+## Para saber más
+
+- Código: [`src/test_cliente.py`](../../src/test_cliente.py)
+- Cliente que se prueba: [`src/cliente.py`](../../src/cliente.py) · ficha: [cliente.md](cliente.md)
 
 Atte.-</br>
 _Jorge Cárdenas Yañez_
