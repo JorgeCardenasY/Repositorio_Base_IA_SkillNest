@@ -20,6 +20,8 @@ Este índice lleva a la explicación de cada fichero Python del repositorio. La 
 - [`consulta_y_consumo.py`](consulta_y_consumo.md): envío, extracción de texto y costo.
 - [`consumir_gemini.py`](consumir_gemini.md): latencia y costo de 4 consultas.
 - [`parsear_respuesta.py`](parsear_respuesta.md): texto del modelo -> diccionario.
+- [`pipeline.py`](pipeline.md): limpieza, tokenización y conteo de palabras.
+- [`pipeline_2.py`](pipeline_2.md): comparación de similitud entre dos textos procesados.
 - [`test_cliente.py`](test_cliente.md): suite de 20 casos del cliente modular, con mocks y sin llamadas reales.
 
 ## prompts/

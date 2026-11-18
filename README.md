@@ -17,7 +17,7 @@ Repositorio base **operativo en local** y en fase de ejercicios previa al Gate 3
 | Costo y latencia | ✅ Operativos | `src/consulta_y_consumo.py`, `src/consumir_gemini.py` |
 | Consistencia | 🟡 Implementada; última corrida: `HotelAmaru` 3/3 y `HotelSpaLasTaguas` 1/3 | `prompts/registro.json` |
 | Comparativas Gemini/DeepSeek | ✅ Operativas | `src/comparativa_pricing_hotel.py`, `src/comparativa_pricing_img.py` |
-| Documentación por fichero | ✅ 16 fichas | `docs/readmes/` |
+| Documentación por fichero | ✅ 18 fichas | `docs/readmes/` |
 | Pruebas automatizadas | ✅ 20 casos en pytest | `src/test_cliente.py` |
 
 
@@ -81,6 +81,8 @@ Sigue las siguientes indicaciones:</br>
    | `python src/comparativa_pricing_hotel.py` | Gemini vs DeepSeek, texto | 3 |
    | `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Gemini vs DeepSeek, imagen | 3 |
    | `python src/cliente.py` | Cliente modular: una consulta con reintentos, costo y texto | 1 (hasta 3 si hay 429) |
+   | `python src/pipeline.py` | Limpieza, tokenización y conteo de palabras | 0 |
+   | `python src/pipeline_2.py` | Coincidencia entre dos textos procesados | 0 |
    | `python app.py` | Prueba con `cowsay` | 0 |
 
    La suite de pruebas (`src/test_cliente.py`) no hace consultas reales: ver [Pruebas automatizadas](#pruebas-automatizadas).
@@ -127,6 +129,8 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 | `python src/comparativa_pricing_hotel.py` | Métricas por modelo + tabla Markdown comparativa | Ninguno |
 | `python src/comparativa_pricing_img.py imgs/patente1.jpg` | Placa extraída + métricas + tabla Markdown | Ninguno |
 | `python src/cliente.py` | Cliente modular: costo de la operación y acumulado + respuesta | Ninguno |
+| `python src/pipeline.py` | Conteo de palabras + lista de tokens | Ninguno |
+| `python src/pipeline_2.py` | `Coincidencia: …%` entre la referencia y la respuesta | Ninguno |
 | `python app.py` | Dos bloques ASCII de `cowsay` | Ninguno |
 
 `prompts/registro.json` tiene esta forma:
@@ -146,7 +150,7 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 
 ## Problemas conocidos
 
-> Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo.
+> Cada consulta consume cuota. Si aparece un 429, espera o cambia `MODELO` en el `.env`. `consistencia.py` no tiene guardia `__main__`: se ejecuta al importarlo. `pipeline_2.py` tampoco la tiene: imprime la coincidencia al importarse.
 
 > Hay una sola implementación del cliente modular (`src/cliente.py`) y una sola suite (`src/test_cliente.py`, apuntada por `pytest.ini`), así que `pytest` a secas ya ejecuta las pruebas del cliente. La versión de referencia de la política de reintentos sigue siendo `src/cliente_reintento.py`.
 
@@ -228,6 +232,11 @@ La mayoría de los comandos **imprimen en consola** y no generan ficheros. El ú
 - Encontrado: `cliente.py` y `test_cliente.py` de la raíz eran copias espejo de `src/cliente.py` y `src/test_cliente.py`; mantener dos versiones obligaba a replicar cada cambio y a ejecutar la suite por separado en cada carpeta.
 - Corregido: se eliminaron las copias de la raíz y la ficha `cliente_src.md`; `src/cliente.py` y `src/test_cliente.py` quedan como únicos, `pytest.ini` apunta a `src/test_cliente.py` y se actualizaron el README, el índice y las fichas.
 - Resultado tras la corrección: `pytest` recoge 20 casos y los aprueba; `python src/cliente.py` y `python app.py` conservan su comportamiento.
+
+> **Fecha: 17/11/2026**
+- Encontrado: `src/pipeline.py` y `src/pipeline_2.py` no tenían ficha ni aparecían en el índice ni en las tablas del README.
+- Corregido: se agregaron `docs/readmes/pipeline.md` y `docs/readmes/pipeline_2.md` (uso, funciones, salidas reales y advertencias), sus enlaces en el índice y sus filas en las tablas de scripts y salidas; la tabla de estado pasa a 18 fichas.
+- Resultado tras la corrección: los dos scripts quedan documentados sin tocar código; `pytest` sigue en 20 casos aprobados.
 
 ## Autor
 
