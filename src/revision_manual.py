@@ -1,32 +1,190 @@
-revision_manual = [
+"""Revisión manual de la muestra de la métrica (Bloques 17 y 18).
 
+Califica a mano 12 de las 22 respuestas de ``src/resultados_metricas.json``
+con la rúbrica de tres preguntas y guarda el registro en
+``docs/revision_manual.json``.
+
+Criterio de selección (corrida del 21-11-2026, 22 casos):
+- los 5 f1 más bajos;
+- los 5 f1 más altos;
+- 2 casos del medio, correctos y de una sola frase, elegidos a propósito para
+  comprobar si la negación apenas se penaliza.
+
+Los ``f1`` son una foto del momento de la revisión: si se vuelve a ejecutar
+``contar_coincidencias.py``, la muestra debe revisarse de nuevo.
+
+Uso:
+    python src/revision_manual.py
+"""
+
+import json
+from pathlib import Path
+
+revision_manual = [
+    # --- los 5 f1 más bajos ---
     {
-        "consulta": "¿Cuándo se creó Python?",
-        "f1": 0.44,
-        "correccion_factual": "no",
+        "consulta": "Explícame con detalle qué es una tupla en Python.",
+        "f1": 0.023,
+        "correccion_factual": "si",
         "completitud": "si",
         "contradiccion": "no",
         "nota": (
-            "la respuesta da un año distinto al de la referencia"
+            "correcta y exhaustiva (ordenada, inmutable, sintaxis, "
+            "métodos); el f1 cae porque la precisión divide entre los "
+            "~200 tokens de la explicación y la referencia tiene 6"
         ),
     },
-
+    {
+        "consulta": "Explícame con detalle qué es un diccionario en Python.",
+        "f1": 0.024,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "define pares clave-valor y añade que es mutable y ordenada "
+            "desde Python 3.7; ningún error, pero la extensión hunde la "
+            "precisión (0.012)"
+        ),
+    },
+    {
+        "consulta": "¿Qué es Python?",
+        "f1": 0.035,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "correcta: alto nivel, interpretado, de propósito general, "
+            "creado por Guido van Rossum en 1991; cobertura 1.0 y f1 "
+            "0.035 porque la respuesta es un ensayo y la referencia "
+            "una frase"
+        ),
+    },
+    {
+        "consulta": "¿Qué es una lista en Python?",
+        "f1": 0.055,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "correcta (ordenada, modificable, admite duplicados y tipos "
+            "mixtos) con cobertura 1.0; el 0.055 lo explica la "
+            "verbosidad, no un fallo de contenido"
+        ),
+    },
+    {
+        "consulta": "¿Cuándo se creó Python?",
+        "f1": 0.105,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "la referencia dice 1991; la respuesta habla de 1989 (inicio "
+            "del desarrollo) y cierra fijando 1991 como nacimiento "
+            "oficial: es más completa, no contradictoria"
+        ),
+    },
+    # --- los 5 f1 más altos ---
+    {
+        "consulta": "¿En qué año se publicó la primera versión de Python?",
+        "f1": 0.6,
+        "correccion_factual": "si",
+        "completitud": "no",
+        "contradiccion": "no",
+        "nota": (
+            "acierta 1991 pero omite la versión 0.9.0, que es el dato que "
+            "aporta la referencia; aun incompleta saca 0.600, casi lo "
+            "mismo que la respuesta completa de append() (0.667)"
+        ),
+    },
+    {
+        "consulta": "¿Qué hace el método append() en una lista?",
+        "f1": 0.667,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "correcta y completa, pero usa 'añade' y 'una lista' en vez "
+            "de 'agrega' y 'la lista': dos sinónimos cuestan un tercio "
+            "del puntaje"
+        ),
+    },
+    {
+        "consulta": "¿Una lista en Python puede contener elementos de distintos tipos?",
+        "f1": 0.783,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "coincidencia conceptual total; 'tipos de datos' en vez de "
+            "'tipos' y un 'simultáneamente' de más bajan la precisión "
+            "a 0.643"
+        ),
+    },
+    {
+        "consulta": "¿Quién creó Python?",
+        "f1": 0.824,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "contenido idéntico a la referencia; el añadido 'el "
+            "programador holandés' impide el 1.0: un dato extra correcto "
+            "penaliza"
+        ),
+    },
+    {
+        "consulta": "¿En qué año terminó el soporte oficial de Python 2?",
+        "f1": 0.96,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "reproduce la referencia casi palabra por palabra; 0.960 es "
+            "el máximo de la corrida y habla del parecido del texto, no "
+            "de la calidad de la respuesta"
+        ),
+    },
+    # --- del medio, elegidos por hipótesis (negación) ---
+    {
+        "consulta": "¿Se puede modificar una tupla después de crearla en Python?",
+        "f1": 0.182,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "correcta y directa ('las tuplas son inmutables'), pero el "
+            "plural y la oración subordinada dejan como única "
+            "coincidencia el token 'no': 0.182"
+        ),
+    },
+    {
+        "consulta": "¿Python se compila a código máquina antes de ejecutarse?",
+        "f1": 0.258,
+        "correccion_factual": "si",
+        "completitud": "si",
+        "contradiccion": "no",
+        "nota": (
+            "más precisa que la referencia: distingue bytecode y máquina "
+            "virtual en lugar de decir solo 'intérprete'; la métrica "
+            "premia la coincidencia literal y le da 0.258"
+        ),
+    },
 ]
 
+SALIDA = Path(__file__).resolve().parents[1] / "docs" / "revision_manual.json"
 
 
-import json
+def main() -> None:
+    """Escribe la revisión manual como JSON con acentos y ñ intactos."""
+    SALIDA.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(SALIDA, "w", encoding="utf-8") as archivo:
+        json.dump(
+            revision_manual, archivo, indent=2, ensure_ascii=False
+        )
+
+    print(f"{len(revision_manual)} casos revisados en {SALIDA.name}")
 
 
-
-with open(
-
-    "docs/revision_manual.json", "w", encoding="utf-8"
-
-) as archivo:
-
-    json.dump(
-
-        revision_manual, archivo, indent=2, ensure_ascii=False
-
-    )
+if __name__ == "__main__":
+    main()

@@ -1,23 +1,156 @@
 [
   {
     "consulta": "¿Qué es Python?",
-    "respuesta": "**Python** es uno de los lenguajes de programación más populares, potentes y fáciles de aprender en el mundo. Fue creado por Guido van Rossum y lanzado por primera vez en 1991.\n\nPara entenderlo de forma sencilla: **es un lenguaje que te permite darle instrucciones a una computadora de una manera muy parecida a como hablamos los humanos.**\n\nAquí te detallo sus características principales, para qué sirve y por qué es tan famoso:\n\n---\n\n### 1. Características principales de Python\n\n* **Fácil de leer y escribir (Sintaxis limpia):** El código de Python se parece mucho al idioma inglés. A diferencia de otros lenguajes (como C++ o Java), no usa muchos símbolos complejos como llaves `{}` o puntos y comas `;`.\n* **De propósito general:** No está diseñado para una sola cosa; con Python puedes crear desde una página web hasta un sistema de Inteligencia Artificial.\n* **Interpretado:** El código se ejecuta línea por línea, lo que facilita encontrar errores rápidamente.\n* **Gratuito y de código abierto:** Cualquiera puede usarlo, modificarlo y distribuirlo sin pagar licencias.\n* **Multiplataforma:** Funciona igual de bien en Windows, macOS, Linux, etc.\n\n---\n\n### 2. ¿Para qué se usa Python? (Casos de uso)\n\nPython es el lenguaje rey en muchas industrias tecnológicas actuales:\n\n1. **Inteligencia Artificial y Aprendizaje Automático (Machine Learning):** Es el estándar de la industria para crear chatbots, sistemas de reconocimiento facial y modelos predictivos (usando librerías como *TensorFlow* o *PyTorch*).\n2. **Ciencia y Análisis de Datos (Data Science):** Permite procesar millones de datos, analizarlos y crear gráficos estadísticos (usando *Pandas*, *NumPy*, *Matplotlib*).\n3. **Desarrollo Web:** Se usa para crear el \"backend\" (la lógica del servidor) de sitios web populares como Instagram, Spotify o Netflix (usando frameworks como *Django* o *Flask*).\n4. **Automatización de tareas (Scripting):** Si tienes una tarea repetitiva en tu computadora (como cambiar el nombre a mil archivos o extraer datos de cientos de PDFs), Python lo puede hacer en segundos.\n5. **Ciberseguridad y Hacking Ético:** Se utiliza para escribir herramientas de análisis de vulnerabilidades y pruebas de seguridad.\n\n---\n\n### 3. Ejemplo visual: ¿Cómo se ve el código en Python?\n\nPara mostrar el mensaje \"¡Hola, Mundo!\" en la pantalla:\n\n* **En C++:**\n  ```cpp\n  #include <iostream>\n  int main() {\n      std::cout << \"¡Hola, Mundo!\";\n      return 0;\n  }\n  ```\n\n* **En Python:**\n  ```python\n  print(\"¡Hola, Mundo!\")\n  ```\n*Como ves, Python requiere mucho menos código y es intuitivo.*\n\n---\n\n### 4. ¿Por qué deberías aprender Python?\n\n* **Alta demanda laboral:** Es uno de los lenguajes más solicitados por las empresas de tecnología y los salarios suelen ser muy competitivos.\n* **Comunidad gigantesca:** Al ser tan popular, si tienes una duda o un error, la respuesta ya está en internet en sitios como Stack Overflow o YouTube.\n* **Ideal para principiantes:** Es considerado el mejor lenguaje para empezar a aprender a programar.\n\n*(Dato curioso: Su nombre no viene de la serpiente pitón, sino del grupo de comediantes británicos **Monty Python**, del cual su creador era fan).*",
-    "precision": 0.015086206896551725,
+    "respuesta": "**Python** es un lenguaje de programación de **alto nivel, interpretado, de propósito general y de código abierto**. Es uno de los lenguajes más populares y utilizados en el mundo hoy en día.\n\nFue creado por el programador holandés **Guido van Rossum** y lanzado en 1991. El nombre \"Python\" no viene de la serpiente, sino del grupo de comedia británico *Monty Python*, del cual su creador era fanático.\n\nAquí te detallo sus aspectos más importantes:\n\n---\n\n### 1. Características principales\n* **Fácil de leer y aprender:** Su sintaxis es muy limpia y se parece mucho al idioma inglés. Diseñado bajo el principio de que \"el código se lee muchas más veces de las que se escribe\".\n* **Interpretado:** No necesitas \"compilar\" el código antes de ejecutarlo. Esto permite probar ideas de forma muy rápida.\n* **Multiparadigma:** Soporta diferentes estilos de programación, como la Programación Orientada a Objetos (POO), programación funcional y estructurada.\n* **Multiplataforma:** El mismo código funciona en Windows, macOS, Linux y otros sistemas operativos.\n* **Ecosistema gigante:** Cuenta con miles de librerías y módulos gratuitos creados por la comunidad que te permiten hacer casi cualquier cosa sin tener que programar todo desde cero.\n\n---\n\n### 2. ¿Para qué se usa Python?\nAl ser de \"propósito general\", sirve para una inmensa variedad de aplicaciones:\n\n1. **Inteligencia Artificial y Machine Learning:** Es el lenguaje estándar para crear modelos de IA, aprendizaje automático y redes neuronales (usando librerías como *TensorFlow, PyTorch, Scikit-learn*).\n2. **Ciencia y Análisis de Datos:** Muy usado por científicos y analistas para procesar grandes volúmenes de datos y crear gráficos (con librerías como *Pandas, NumPy, Matplotlib*).\n3. **Desarrollo Web:** Para crear el backend (la lógica del servidor) de sitios y aplicaciones web (usando frameworks como *Django, Flask, FastAPI*).\n4. **Automatización y Scripting:** Ideal para crear pequeños programas que automatizan tareas repetitivas (como organizar archivos, enviar correos masivos o extraer información de páginas web mediante *Web Scraping*).\n5. **Desarrollo de Software y Ciberseguridad:** Utilizado para crear herramientas de pruebas de seguridad, aplicaciones de escritorio y prototipos rápidos.\n\n---\n\n### 3. Ejemplo visual: ¿Por qué es tan sencillo?\n\nPara imprimir \"¡Hola, Mundo!\" en pantalla, mientras que en otros lenguajes necesitas varias líneas de código complejas, en **Python** solo necesitas una:\n\n```python\nprint(\"¡Hola, Mundo!\")\n```\n\n### Resumen\nPython es el lenguaje ideal para **principiantes** por su simplicidad, pero también es una herramienta extremadamente potente utilizada por **gigantes tecnológicos** como Google, Netflix, Spotify, Instagram y la NASA.",
+    "precision": 0.017902813299232736,
     "cobertura": 1.0,
-    "f1": 0.029723991507430995
+    "f1": 0.035175879396984924
   },
   {
     "consulta": "¿Cuándo se creó Python?",
-    "respuesta": "Python fue creado a finales de los años 80 por el programador holandés **Guido van Rossum**.\n\nLas fechas clave de su creación son:\n\n* **Diciembre de 1989:** Guido van Rossum empezó a escribir el código del lenguaje como un proyecto personal durante sus vacaciones de Navidad.\n* **20 de febrero de 1991:** Se lanzó oficialmente la primera versión pública (Python 0.9.0).\n\nPor lo tanto, se considera oficialmente que Python fue creado el **20 de febrero de 1991**.",
-    "precision": 0.05333333333333334,
-    "cobertura": 0.8,
-    "f1": 0.1
+    "respuesta": "El lenguaje de programación Python fue creado a finales de la década de 1980 por el programador holandés **Guido van Rossum**.\n\nLas fechas clave de su creación son:\n\n* **Diciembre de 1989:** Guido van Rossum empezó a desarrollar Python como un proyecto personal durante sus vacaciones de Navidad.\n* **20 de febrero de 1991:** Se publicó oficialmente la primera versión pública del código (la versión **0.9.0**) en el grupo de noticias *alt.sources*.\n\nPor lo tanto, aunque su desarrollo comenzó en **1989**, se considera que **1991** es el año de su nacimiento oficial.",
+    "precision": 0.05555555555555555,
+    "cobertura": 1.0,
+    "f1": 0.10526315789473684
   },
   {
     "consulta": "¿Qué es una lista en Python?",
-    "respuesta": "En Python, una **lista** es una estructura de datos que se utiliza para almacenar una colección **ordenada y modificable** de elementos. Es uno de los tipos de datos más utilizados en Python debido a su flexibilidad y simplicidad.\n\nLas listas se definen encerrando los elementos entre **corchetes `[]`** y separándolos con **comas `,`**.\n\n---\n\n### Características principales de una lista:\n\n1. **Ordenada:** Los elementos mantienen el orden en el que se añaden. Cada elemento tiene una posición específica llamada **índice** (empezando desde el `0`).\n2. **Mutable:** Puedes cambiar, añadir o eliminar elementos después de haber creado la lista.\n3. **Permite duplicados:** Una lista puede contener varios elementos con el mismo valor.\n4. **Heterogénea:** Puede almacenar diferentes tipos de datos al mismo tiempo (enteros, texto, booleanos, decimales e incluso otras listas).\n\n---\n\n### Ejemplos prácticos\n\n#### 1. Crear listas\n```python\n# Lista de números\nnumeros = [1, 2, 3, 4, 5]\n\n# Lista de cadenas de texto (strings)\nfrutas = [\"manzana\", \"banana\", \"naranja\"]\n\n# Lista con diferentes tipos de datos (heterogénea)\nmixta = [10, \"Hola\", 3.14, True]\n\n# Lista vacía\nvacia = []\n```\n\n#### 2. Acceder a los elementos (Indexación)\nSe usa el índice entre corchetes para obtener un elemento. Recuerda que en programación **se empieza a contar desde 0**.\n\n```python\nfrutas = [\"manzana\", \"banana\", \"cereza\"]\n\nprint(frutas[0])  # Salida: manzana\nprint(frutas[1])  # Salida: banana\n\n# Los índices negativos cuentan desde el final:\nprint(frutas[-1])  # Salida: cereza (el último elemento)\n```\n\n#### 3. Modificar elementos\nAl ser mutables, puedes cambiar el valor de cualquier posición:\n\n```python\nfrutas = [\"manzana\", \"banana\", \"cereza\"]\nfrutas[1] = \"pera\"  # Cambia \"banana\" por \"pera\"\n\nprint(frutas)  # Salida: ['manzana', 'pera', 'cereza']\n```\n\n#### 4. Métodos comunes para trabajar con listas\n\n* **Añadir elementos:**\n  ```python\n  frutas.append(\"uva\")  # Añade \"uva\" al final de la lista\n  frutas.insert(1, \"mango\")  # Inserta \"mango\" en la posición 1\n```\n\n* **Eliminar elementos:**\n  ```python\n  frutas.remove(\"manzana\")  # Elimina el elemento por su valor\n  frutas.pop()  # Elimina y devuelve el último elemento\n```\n\n* **Saber el tamaño de la lista:**\n  ```python\n  print(len(frutas))  # Devuelve la cantidad de elementos\n```\n\n---\n\n### Analogía para entenderla fácilmente\nImagina una lista en Python como una **lista de la compra** escrita en un papel:\n* Puedes leer el primer artículo, el segundo, etc. (Orden e índices).\n* Puedes tachar un artículo y poner otro encima (Mutable).\n* Puedes anotar dos veces \"leche\" si quieres dos cartones (Permite duplicados).\n* Puedes anotar comida, productos de limpieza o electrónica en la misma hoja (Heterogénea).",
-    "precision": 0.02197802197802198,
+    "respuesta": "En Python, una **lista** es una estructura de datos que se utiliza para almacenar una colección ordenada y modificable de elementos. Es uno de los tipos de datos más versátiles y utilizados en el lenguaje.\n\nPara crear una lista, los elementos se encierran entre corchetes `[]` y se separan por comas.\n\n---\n\n### Características principales de una lista\n\n1. **Ordenada:** Los elementos tienen un orden definido que no cambiará a menos que tú lo modifiques explícitamente. Cada elemento tiene una posición o índice (empezando desde el `0`).\n2. **Mutable:** Puedes cambiar, agregar o eliminar elementos después de haber creado la lista.\n3. **Permite duplicados:** Una lista puede contener elementos con el mismo valor sin ningún problema.\n4. **Heterogénea:** Puede almacenar diferentes tipos de datos al mismo tiempo (enteros, cadenas de texto, booleanos, flotantes e incluso otras listas).\n\n---\n\n### Ejemplos básicos\n\n#### 1. Creación de una lista\n```python\n# Lista de números\nnumeros = [1, 2, 3, 4, 5]\n\n# Lista de cadenas (strings)\nfrutas = [\"manzana\", \"banana\", \"cereza\"]\n\n# Lista con diferentes tipos de datos\nmixta = [10, \"Hola\", 3.14, True]\n```\n\n#### 2. Acceder a los elementos (Indexación)\nLos índices en Python empiezan en `0`.\n```python\nfrutas = [\"manzana\", \"banana\", \"cereza\"]\n\nprint(frutas[0])  # Imprime: manzana\nprint(frutas[1])  # Imprime: banana\n\n# Índice negativo (cuenta desde el final)\nprint(frutas[-1])  # Imprime: cereza\n```\n\n#### 3. Modificar elementos\n```python\nfrutas = [\"manzana\", \"banana\", \"cereza\"]\nfrutas[1] = \"pera\"\n\nprint(frutas)  # Resultado: ['manzana', 'pera', 'cereza']\n```\n\n#### 4. Operaciones comunes\n\n* **Agregar elementos:**\n  ```python\n  frutas.append(\"uva\")  # Agrega al final\n  ```\n* **Eliminar elementos:**\n  ```python\n  frutas.remove(\"manzana\")  # Elimina por valor\n  frutas.pop(0)  # Elimina por índice (en este caso, el primero)\n  ```\n* **Obtener la longitud:**\n  ```python\n  print(len(frutas))  # Devuelve la cantidad de elementos\n  ```\n\n---\n\n### Resumen\nPiensa en una lista como una **caja organizada** donde puedes guardar varios objetos, etiquetados por su posición, y donde puedes meter o sacar cosas siempre que lo necesites.",
+    "precision": 0.028268551236749116,
     "cobertura": 1.0,
-    "f1": 0.043010752688172046
+    "f1": 0.054982817869415807
+  },
+  {
+    "consulta": "Explícame con detalle qué es una tupla en Python.",
+    "respuesta": "Una **tupla** en Python es una colección de datos **ordenada e inmutable** (que no se puede modificar). Se utiliza para agrupar elementos relacionados bajo un mismo nombre. \n\nA diferencia de las listas, una vez que creas una tupla, no puedes añadir, eliminar ni cambiar sus elementos.\n\nA continuación, te explico a detalle todas sus características, sintaxis, operaciones y cuando conviene usarlas.\n\n---\n\n### 1. Sintaxis y Creación\n\nLas tuplas se definen encerrando los elementos entre **paréntesis `()`** y separándolos por comas.\n\n```python\n# Tupla estándar\nfrutas = (\"manzana\", \"banana\", \"cereza\")\n\n# Tupla con diferentes tipos de datos (heterogénea)\nmixto = (1, \"Hola\", 3.14, True)\n\n# Tupla vacía\nvacía = ()\n```\n\n#### ¡Cuidado con el caso de un solo elemento!\nPara que Python reconozca una tupla de un solo elemento, **debes incluir una coma** al final. De lo contrario, Python lo interpretará como un simple valor entre paréntesis (por ejemplo, un número o un texto).\n\n```python\nno_es_tupla = \"Hola\"  # Es un String (str)\nes_tupla = (\"Hola\",)  # Es una Tupla (tuple)\n```\n\n#### Empaquetado de tuplas (Tuple Packing)\nLos paréntesis son opcionales a la hora de crear una tupla. Si defines variables separadas por comas, Python creará una tupla automáticamente:\n\n```python\npunto = 10, 20  # Esto crea la tupla (10, 20)\n```\n\n---\n\n### 2. Características Principales\n\n1. **Ordenadas:** Los elementos tienen un orden definido que no cambiará. El primer elemento tiene el índice `0`, el segundo `1`, etc.\n2. **Inmutables:** Una vez creada, **no** puedes hacer cosas como `tupla[0] = \"nuevo valor\"`, ni usar métodos como `.append()` o `.remove()`.\n3. **Permiten duplicados:** Pueden tener varios elementos con el mismo valor (ej. `(1, 2, 2, 3)`).\n4. **Pueden contener cualquier tipo de dato:** Números, cadenas, booleanos, incluso otras tuplas o listas.\n\n---\n\n### 3. Operaciones comunes con Tuplas\n\n#### A. Acceso a los elementos (Indexing y Slicing)\nAccedes a los elementos usando corchetes `[]`, exactamente igual que en las listas.\n\n```python\ncolores = (\"rojo\", \"verde\", \"azul\", \"amarillo\")\n\nprint(colores[0])  # Salida: rojo (primer elemento)\nprint(colores[-1]) # Salida: amarillo (último elemento)\n\n# Slicing (rebanado): toma una porción [inicio:fin_sin_incluir]\nprint(colores[1:3]) # Salida: ('verde', 'azul')\n```\n\n#### B. Desempaquetado de tuplas (Tuple Unpacking)\nEs una función muy poderosa de Python que permite asignar los elementos de una tupla directamente a variables individuales.\n\n```python\npersona = (\"Ana\", 25, \"España\")\n\n# Desempaquetado\nnombre, edad, pais = persona\n\nprint(nombre)  # Salida: Ana\nprint(edad)    # Salida: 25\n```\n\nTambién puedes usar el operador `*` para capturar múltiples elementos:\n\n```python\nnumeros = (1, 2, 3, 4, 5)\nprimero, *resto, ultimo = numeros\n\nprint(primero)  # 1\nprint(resto)    # [2, 3, 4] (se guarda como lista)\nprint(ultimo)   # 5\n```\n\n#### C. Métodos de las Tuplas\nComo las tuplas son inmutables, **solo tienen 2 métodos integrados**:\n\n1. **`count(x)`**: Cuenta cuántas veces aparece el valor `x` en la tupla.\n   ```python\n   nums = (1, 2, 3, 1, 1, 4)\n   print(nums.count(1))  # Salida: 3\n   ```\n2. **`index(x)`**: Devuelve el índice de la primera aparición del valor `x`.\n   ```python\n   print(nums.index(3))  # Salida: 2\n   ```\n\n---\n\n### 4. La \"Inmutabilidad\" y el caso de objetos mutables\n\nAunque la tupla en sí no puede modificarse, **si contiene un elemento mutable (como una lista), los elementos de esa lista sí se pueden cambiar.**\n\n```python\n# La tupla contiene una lista en su segunda posición\nmi_tupla = (1, [10, 20], 3)\n\n# No podemos cambiar la lista por otra cosa:\n# mi_tupla[1] = \"hola\" -> ERROR\n\n# Pero SÍ podemos modificar el contenido de la lista:\nmi_tupla[1][0] = 99\nprint(mi_tupla)  # Salida: (1, [99, 20], 3)\n```\n\n---\n\n### 5. ¿Por qué usar Tuplas en lugar de Listas?\n\nSi las listas hacen casi lo mismo y son más flexibles, ¿por qué existen las tuplas?\n\n1. **Seguridad de datos:** Si tienes datos que *nunca* deberían cambiar a lo largo del programa (por ejemplo, coordenadas geográficas, días de la semana, configuraciones), usar tuplas garantiza que nadie los modifique por accidente.\n2. **Rendimiento (Velocidad y Memoria):** Las tuplas son más ligeras y rápidas de procesar para Python que las listas. Ocupan menos espacio en la memoria RAM.\n3. **Claves en Diccionarios:** Las tuplas pueden ser usadas como *claves* (keys) en un diccionario de Python porque son inmutables (y por ende \"hashables\"). Las listas no pueden ser claves de un diccionario.\n\n```python\n# Tupla como clave de diccionario (coordenadas -> ciudad)\nlugares = {\n    (40.4167, -3.7037): \"Madrid\",\n    (48.8566, 2.3522): \"París\"\n}\n```\n\n---\n\n### Resumen de diferencias principales: Tupla vs Lista\n\n| Característica | Tupla (`tuple`) | Lista (`list`) |\n| :--- | :--- | :--- |\n| **Sintaxis** | Paréntesis `()` | Corchetes `[]` |\n| **Mutable** | **No** (Inmutable) | **Sí** (Mutable) |\n| **Velocidad** | Más rápida | Más lenta |\n| **Tamaño en memoria**| Menor | Mayor |\n| **Usos comunes** | Datos heterogéneos, constantes, claves | Colecciones homogéneas que van a cambiar |",
+    "precision": 0.011444921316165951,
+    "cobertura": 1.0,
+    "f1": 0.022630834512022628
+  },
+  {
+    "consulta": "Explícame con detalle qué es un diccionario en Python.",
+    "respuesta": "Un **diccionario** en Python es una de las estructuras de datos más potentes, flexibles y utilizadas del lenguaje. Técnicamente, es una colección **mutable** (se puede modificar) y **ordenada** (desde Python 3.7) que almacena información en forma de **pares clave-valor** (*key-value pairs*).\n\nPara entenderlo de forma sencilla: funciona exactamente igual que un diccionario de texto real o una agenda telefónica. En lugar de buscar un elemento por su posición (como en una lista, usando los índices 0, 1, 2...), buscas un **valor** a través de su **clave**.\n\n---\n\n### 1. Sintaxis Básica\n\nLos diccionarios se delimitan con llaves `{}` y los pares clave-valor se separan por comas. La clave y el valor se separan con dos puntos `:`.\n\n```python\n# Ejemplo de un diccionario que representa a una persona\npersona = {\n    \"nombre\": \"Carlos\",\n    \"edad\": 29,\n    \"ciudad\": \"Barcelona\",\n    \"es_estudiante\": False\n}\n```\n\n---\n\n### 2. Características Clave de un Diccionario\n\n1. **Claves únicas:** No puede haber dos claves iguales en un mismo diccionario. Si intentas asignar un valor a una clave que ya existe, el valor antiguo se sobrescribirá.\n2. **Las claves deben ser inmutables:** Una clave solo puede ser de un tipo de datos que no pueda cambiar (cadenas de texto, números o tuplas). No puedes usar listas o diccionarios como claves.\n3. **Valores de cualquier tipo:** Los *valores* no tienen restricciones. Pueden ser números, texto, listas, booleanos, funciones u otros diccionarios.\n4. **Ordenados:** A partir de Python 3.7, los diccionarios mantienen el orden en el que se insertaron los elementos.\n5. **Acceso rápido (Tablas Hash):** Buscar un valor por su clave es extremadamente rápido en Python, sin importar lo grande que sea el diccionario, porque internamente utiliza un mecanismo llamado **Tabla Hash**.\n\n---\n\n### 3. Operaciones Principales (CRUD)\n\n#### A. Acceder a los datos\nPuedes acceder mediante la clave usando corchetes `[]` o el método `.get()`.\n\n```python\n# Opción 1: Corchetes\nprint(persona[\"nombre\"])  # Imprime: Carlos\n\n# Opción 2: Método .get() (Recomendado)\nprint(persona.get(\"edad\"))  # Imprime: 29\n\n# Diferencia importante:\n# Si la clave no existe, los corchetes dan un error (KeyError).\n# .get() devuelve 'None' o un valor por defecto que tú elijas:\nprint(persona.get(\"trabajo\", \"No especificado\"))  # Imprime: No especificado\n```\n\n#### B. Añadir o Modificar elementos\nNo hay un método especial para añadir; simplemente asignas un valor a una clave nueva o existente.\n\n```python\n# Modificar un valor existente\npersona[\"edad\"] = 30 \n\n# Añadir un nuevo par clave-valor\npersona[\"profesion\"] = \"Ingeniero\"\n\nprint(persona)\n# Resultado: {'nombre': 'Carlos', 'edad': 30, 'ciudad': 'Barcelona', 'es_estudiante': False, 'profesion': 'Ingeniero'}\n```\n\n#### C. Eliminar elementos\nPuedes usar la palabra reservada `del` o el método `.pop()`.\n\n```python\n# Usando 'del'\ndel persona[\"es_estudiante\"]\n\n# Usando '.pop()' (elimina y además te devuelve el valor eliminado)\nciudad_eliminada = persona.pop(\"ciudad\")\n\nprint(ciudad_eliminada) # Imprime: Barcelona\n```\n\n---\n\n### 4. Métodos más útiles para iterar (Bucles)\n\nPython ofrece tres métodos fundamentales para extraer información de un diccionario:\n\n```python\nestudiante = {\"nombre\": \"Ana\", \"nota\": 9.5, \"curso\": \"Python\"}\n\n# 1. .keys() -> Obtiene solo las claves\nfor clave in estudiante.keys():\n    print(clave) # Imprime: nombre, nota, curso\n\n# 2. .values() -> Obtiene solo los valores\nfor valor in estudiante.values():\n    print(valor) # Imprime: Ana, 9.5, Python\n\n# 3. .items() -> Obtiene clave y valor al mismo tiempo (EL MÁS USADO)\nfor clave, valor in estudiante.items():\n    print(f\"{clave}: {valor}\")\n# Imprime:\n# nombre: Ana\n# nota: 9.5\n# curso: Python\n```\n\n---\n\n### 5. Diccionarios Anidados (Complex Data)\n\nLos diccionarios pueden contener otros diccionarios. Esto es muy común cuando se trabaja con APIs de internet o datos en formato **JSON**.\n\n```python\nusuarios = {\n    \"user123\": {\n        \"nombre\": \"Laura\",\n        \"email\": \"laura@example.com\"\n    },\n    \"user456\": {\n        \"nombre\": \"Pedro\",\n        \"email\": \"pedro@example.com\"\n    }\n}\n\n# Para acceder al email de Laura:\nprint(usuarios[\"user123\"][\"email\"])  # Imprime: laura@example.com\n```\n\n---\n\n### 6. Comprensión de Diccionarios (*Dictionary Comprehension*)\n\nAl igual que con las listas, Python permite crear diccionarios de forma rápida y elegante en una sola línea de código:\n\n```python\n# Crear un diccionario donde las claves son números y los valores son sus cuadrados\ncuadrados = {x: x**2 for x in range(1, 6)}\n\nprint(cuadrados)\n# Resultado: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}\n```\n\n---\n\n### Resumen\nUn **diccionario** en Python es la herramienta ideal cuando necesitas asociar información explícita (etiquetas o nombres) a tus datos, en lugar de depender únicamente de un orden numérico. Es la base de casi cualquier aplicación moderna en Python, análisis de datos y desarrollo web.",
+    "precision": 0.012213740458015267,
+    "cobertura": 1.0,
+    "f1": 0.024132730015082954
+  },
+  {
+    "consulta": "¿Qué es una tupla en Python?",
+    "respuesta": "Una tupla en Python es una estructura de datos que permite almacenar una colección ordenada e inmutable de elementos delimitados por paréntesis.",
+    "precision": 0.36363636363636365,
+    "cobertura": 1.0,
+    "f1": 0.5333333333333333
+  },
+  {
+    "consulta": "¿Qué es un diccionario en Python?",
+    "respuesta": "Un diccionario en Python es una estructura de datos mutable que permite almacenar información organizada en pares de clave y valor.",
+    "precision": 0.2857142857142857,
+    "cobertura": 0.75,
+    "f1": 0.4137931034482759
+  },
+  {
+    "consulta": "¿Qué hace la función len() en Python?",
+    "respuesta": "La función len() devuelve la longitud o el número total de elementos que contiene un objeto en Python.",
+    "precision": 0.2777777777777778,
+    "cobertura": 0.5555555555555556,
+    "f1": 0.3703703703703704
+  },
+  {
+    "consulta": "¿Qué hace el método append() en una lista?",
+    "respuesta": "El método append añade un elemento al final de una lista existente.",
+    "precision": 0.5833333333333334,
+    "cobertura": 0.7777777777777778,
+    "f1": 0.6666666666666666
+  },
+  {
+    "consulta": "¿Qué es pip?",
+    "respuesta": "Pip es el sistema de gestión de paquetes estándar de Python que permite instalar, actualizar y administrar fácilmente bibliotecas y dependencias de software externas.",
+    "precision": 0.2916666666666667,
+    "cobertura": 0.875,
+    "f1": 0.43750000000000006
+  },
+  {
+    "consulta": "¿Qué es un módulo en Python?",
+    "respuesta": "Un módulo en Python es un archivo que contiene código, como funciones, variables o clases, diseñado para ser reutilizado en otros programas mediante su importación.",
+    "precision": 0.28,
+    "cobertura": 0.7777777777777778,
+    "f1": 0.4117647058823529
+  },
+  {
+    "consulta": "¿Qué hace la función range() en Python?",
+    "respuesta": "La función range en Python genera una secuencia inmutable de números enteros dentro de un rango especificado, la cual se utiliza principalmente para iterar dentro de bucles.",
+    "precision": 0.2222222222222222,
+    "cobertura": 1.0,
+    "f1": 0.3636363636363636
+  },
+  {
+    "consulta": "¿Qué es un entorno virtual en Python?",
+    "respuesta": "Un entorno virtual en Python es un espacio de trabajo aislado que permite instalar librerías y dependencias específicas para un proyecto determinado sin interferir con otros proyectos ni con la instalación global del sistema.",
+    "precision": 0.20588235294117646,
+    "cobertura": 0.7777777777777778,
+    "f1": 0.3255813953488372
+  },
+  {
+    "consulta": "¿Quién creó Python?",
+    "respuesta": "Python fue creado por el programador holandés Guido van Rossum.",
+    "precision": 0.7,
+    "cobertura": 1.0,
+    "f1": 0.8235294117647058
+  },
+  {
+    "consulta": "¿En qué año se lanzó Python 3.0?",
+    "respuesta": "Python 3.0 fue lanzado en el año 2008.",
+    "precision": 0.5,
+    "cobertura": 0.6666666666666666,
+    "f1": 0.5714285714285715
+  },
+  {
+    "consulta": "¿En qué año se publicó la primera versión de Python?",
+    "respuesta": "La primera versión de Python se publicó en el año 1991.",
+    "precision": 0.5454545454545454,
+    "cobertura": 0.6666666666666666,
+    "f1": 0.6
+  },
+  {
+    "consulta": "¿En qué año terminó el soporte oficial de Python 2?",
+    "respuesta": "El soporte oficial de Python 2 terminó el 1 de enero de 2020.",
+    "precision": 0.9230769230769231,
+    "cobertura": 1.0,
+    "f1": 0.9600000000000001
+  },
+  {
+    "consulta": "¿Qué versión de Python introdujo los f-strings?",
+    "respuesta": "Los f-strings fueron introducidos en la versión 3.6 de Python.",
+    "precision": 0.5,
+    "cobertura": 0.7142857142857143,
+    "f1": 0.588235294117647
+  },
+  {
+    "consulta": "¿Python es de tipado estático?",
+    "respuesta": "No, Python no es de tipado estático, sino de tipado dinámico, lo que significa que los tipos de variables se determinan en tiempo de ejecución.",
+    "precision": 0.24,
+    "cobertura": 1.0,
+    "f1": 0.3870967741935484
+  },
+  {
+    "consulta": "¿Se puede modificar una tupla después de crearla en Python?",
+    "respuesta": "No, las tuplas en Python son inmutables, por lo que no se pueden modificar una vez creadas.",
+    "precision": 0.11764705882352941,
+    "cobertura": 0.4,
+    "f1": 0.1818181818181818
+  },
+  {
+    "consulta": "¿Python se compila a código máquina antes de ejecutarse?",
+    "respuesta": "No, Python no se compila directamente a código máquina, sino a un código intermedio llamado bytecode que luego es ejecutado por una máquina virtual.",
+    "precision": 0.16666666666666666,
+    "cobertura": 0.5714285714285714,
+    "f1": 0.25806451612903225
+  },
+  {
+    "consulta": "¿Una lista en Python puede contener elementos de distintos tipos?",
+    "respuesta": "Sí, una lista en Python puede contener elementos de distintos tipos de datos simultáneamente.",
+    "precision": 0.6428571428571429,
+    "cobertura": 1.0,
+    "f1": 0.782608695652174
   }
 ]
